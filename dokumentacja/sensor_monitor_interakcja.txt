@@ -1,0 +1,8 @@
+title Sensor Monitor interakacja
+
+Sensor->+Monitor: Wysłanie metadanych/rejestracja w monitorze.
+Monitor-->-Sensor: Odpowiedz z identyfikatorem
+
+loop Co konfigurowalny czas
+    Sensor->Monitor: Wysłanie pomiaru
+end
