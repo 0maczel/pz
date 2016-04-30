@@ -6,10 +6,10 @@ import org.hibernate.Session;
 
 import pz.monitor.data.model.Entity;
 
-public class SessionRepository implements Repository {
+public class CRUDRepository implements Repository {
 	Session session;
 	
-	public SessionRepository(Session session) {
+	public CRUDRepository(Session session) {
 		this.session = session;
 	}
 	

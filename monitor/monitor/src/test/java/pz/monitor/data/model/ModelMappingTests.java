@@ -1,17 +1,16 @@
 package pz.monitor.data.model;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import junit.framework.TestCase;
+import pz.monitor.data.TestEntityFactory;
 import pz.monitor.data.infrastructure.MemoryDatabaseSessionProvider;
 import pz.monitor.data.infrastructure.SessionProvider;
 import pz.monitor.data.model.ComplexMeasurement;
@@ -24,7 +23,7 @@ public class ModelMappingTests extends TestCase {
 
 	public void test_ShouldReturnEntitiVersion5_WhenUpdatedFiveTimes() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Metric metric = getTestMetric();
+			Metric metric = TestEntityFactory.getTestMetric();
 
 			doInSession(sessionProvider, session -> {
 				session.save(metric);
@@ -41,8 +40,9 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldCreationTimestampAndUpdateTimestampBeAutoInitialized() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Metric metric = getTestMetric();
+			Metric metric = TestEntityFactory.getTestMetric();
 			Timestamp preCreateTimeStamp = Timestamp.valueOf(LocalDateTime.now());
+			Thread.sleep(10);
 
 			doInSession(sessionProvider, session -> {
 				session.save(metric);
@@ -59,16 +59,18 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldUpdateTimestampBeAutoUpdated() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Metric metric = getTestMetric();
+			Metric metric = TestEntityFactory.getTestMetric();
 			List<Timestamp> timestampsList = new ArrayList<Timestamp>();
 			timestampsList.add(Timestamp.valueOf(LocalDateTime.now()));
+			Thread.sleep(10);
 
 			doInSession(sessionProvider, session -> {
 				session.save(metric);
 				timestampsList.add(metric.getUpdateTimestamp());
-			});
+			});		
 			
 			for (int i = 0; i < 5; i++) {
+				Thread.sleep(10);
 				doInSession(sessionProvider, session -> {
 					session.update(metric);
 				});
@@ -86,7 +88,7 @@ public class ModelMappingTests extends TestCase {
 
 	public void test_ShouldSaveAndLoadTheMetricClass() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Metric metricToSave = getTestMetric();
+			Metric metricToSave = TestEntityFactory.getTestMetric();
 
 			doInSession(sessionProvider, session -> {
 				session.save(metricToSave);
@@ -108,7 +110,7 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldSaveAndLoadTheResourceClass() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Resource resourceToSave = getTestResource();
+			Resource resourceToSave = TestEntityFactory.getTestResource();
 
 			doInSession(sessionProvider, session -> {
 				session.save(resourceToSave);
@@ -130,7 +132,7 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldSaveAndLoadTheSensorClass() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Sensor sensorToSave = getTestSensor();
+			Sensor sensorToSave = TestEntityFactory.getTestSensor();
 			
 			doInSession(sessionProvider, session -> {
 				session.save(sensorToSave);
@@ -155,7 +157,7 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldSaveAndLoadTheComplexMeasurementClass() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			ComplexMeasurement complexMeasurementToSave = getTestComplexMeasurement();
+			ComplexMeasurement complexMeasurementToSave = TestEntityFactory.getTestComplexMeasurement();
 			
 			doInSession(sessionProvider, session -> {
 				session.save(complexMeasurementToSave);
@@ -181,7 +183,7 @@ public class ModelMappingTests extends TestCase {
 	
 	public void test_ShouldSaveAndLoadTheMeasurementClass() throws Exception {
 		try (SessionProvider sessionProvider = new MemoryDatabaseSessionProvider()) {
-			Measurement neasurementToSave = getTestMeasurement();
+			Measurement neasurementToSave = TestEntityFactory.getTestMeasurement();
 			
 			doInSession(sessionProvider, session -> {
 				session.save(neasurementToSave);
@@ -202,44 +204,6 @@ public class ModelMappingTests extends TestCase {
 				assertEquals(neasurementToSave.getResource().getName(), m.getResource().getName());
 			});
 		}
-	}
-	
-	private Metric getTestMetric() {
-		Metric metric = new Metric();
-		metric.setName("Test metric");
-		return metric;
-	}
-	
-	private Resource getTestResource() {
-		Resource resource = new Resource();
-		resource.setName("Test resource");
-		return resource;
-	}
-	
-	private Sensor getTestSensor() {
-		Sensor sensor = new Sensor();
-		sensor.setExternalSystemId(UUID.randomUUID().toString());
-		sensor.setMetric(getTestMetric());
-		sensor.setResource(getTestResource());
-		return sensor;
-	}
-	
-	private ComplexMeasurement getTestComplexMeasurement() {
-		ComplexMeasurement complesMeasurement = new ComplexMeasurement();
-		complesMeasurement.setMetric(getTestMetric());
-		complesMeasurement.setResource(getTestResource());
-		complesMeasurement.setWindowLength(Duration.ofMinutes(10));
-		complesMeasurement.setWindowInterval(Duration.ofMinutes(1));
-		return complesMeasurement;
-	}
-	
-	private Measurement getTestMeasurement() {
-		Measurement measurement = new Measurement();
-		measurement.setMetric(getTestMetric());
-		measurement.setResource(getTestResource());
-		measurement.setSensor(getTestSensor());
-		measurement.setValue(123.456);
-		return measurement;
 	}
 
 	private void doInSession(SessionProvider sessionProvider, Consumer<Session> block) throws Exception {
