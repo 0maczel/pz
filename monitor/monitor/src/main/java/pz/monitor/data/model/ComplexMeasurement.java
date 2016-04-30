@@ -2,8 +2,20 @@ package pz.monitor.data.model;
 
 import java.time.Duration;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+@javax.persistence.Entity
+@Table(name="ComplexMeasurement")
 public class ComplexMeasurement extends Entity {
+	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Resource resource;
+	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Metric metric;
 	private Duration windowLength;
 	private Duration windowInterval;

@@ -1,8 +1,22 @@
 package pz.monitor.data.model;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+@javax.persistence.Entity
+@Table(name="Measurement")
 public class Measurement extends Entity {
+	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Resource resource;
+	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Metric metric;
+	@ManyToOne
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Sensor sensor;
 	private double value;
 

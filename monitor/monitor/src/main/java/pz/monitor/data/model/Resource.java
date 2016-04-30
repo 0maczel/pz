@@ -1,5 +1,9 @@
 package pz.monitor.data.model;
 
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table(name="Resource")
 public class Resource extends Entity {
 	private String name;
 
