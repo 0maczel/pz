@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>pz.monitor</groupId>
+    <artifactId>monitor-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>monitor-api</artifactId>
+  <name>PZ Monitor API</name>
+  
+  	<!-- 
+		Invader
+  		Tutaj zapewne znajdą interfejsy i dto dla REST api, ale jeszcze nie jestem przekonany
+  		czy jest sens to wydzielać.
+  	 -->
+  
+  
+</project>
