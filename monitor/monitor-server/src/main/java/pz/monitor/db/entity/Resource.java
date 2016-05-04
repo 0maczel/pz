@@ -1,10 +1,10 @@
-package pz.monitor.data.model;
+package pz.monitor.db.entity;
 
-import javax.persistence.*;
+import javax.persistence.Table;
 
 @javax.persistence.Entity
-@Table(name="Metric")
-public class Metric extends Entity {
+@Table(name="Resource")
+public class Resource extends Entity {
 	private String name;
 
 	public String getName() {

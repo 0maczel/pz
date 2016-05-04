@@ -2,10 +2,12 @@ package pz.monitor.service.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pz.monitor.db.Example;
+import pz.monitor.db.entity.Example;
 
 // TODO remove
 /**
@@ -15,14 +17,21 @@ import pz.monitor.db.Example;
  *
  */
 @RestController
+@Transactional
 public class ExampleService
 {
     @Autowired
     private ExampleDao dao;
 
-    @RequestMapping(path = "/example", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Example hello()
+    @RequestMapping(path = "/storeRandom", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Example store()
     {
-        return dao.get();
+        return dao.store();
+    }
+
+    @RequestMapping(path = "/example/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Example get(@PathVariable Long id)
+    {
+        return dao.get(id);
     }
 }

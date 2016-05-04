@@ -3,11 +3,11 @@ package pz.monitor.data;
 import java.time.Duration;
 import java.util.UUID;
 
-import pz.monitor.data.model.ComplexMeasurement;
-import pz.monitor.data.model.Measurement;
-import pz.monitor.data.model.Metric;
-import pz.monitor.data.model.Resource;
-import pz.monitor.data.model.Sensor;
+import pz.monitor.db.entity.ComplexMeasurement;
+import pz.monitor.db.entity.Measurement;
+import pz.monitor.db.entity.Metric;
+import pz.monitor.db.entity.Resource;
+import pz.monitor.db.entity.Sensor;
 
 public class TestEntityFactory {
 	public static Metric getTestMetric() {

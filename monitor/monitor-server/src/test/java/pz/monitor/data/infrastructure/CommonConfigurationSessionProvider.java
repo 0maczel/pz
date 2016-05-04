@@ -2,12 +2,12 @@ package pz.monitor.data.infrastructure;
 
 import org.hibernate.cfg.Configuration;
 
-import pz.monitor.data.model.ComplexMeasurement;
-import pz.monitor.data.model.Entity;
-import pz.monitor.data.model.Measurement;
-import pz.monitor.data.model.Metric;
-import pz.monitor.data.model.Resource;
-import pz.monitor.data.model.Sensor;
+import pz.monitor.db.entity.ComplexMeasurement;
+import pz.monitor.db.entity.Entity;
+import pz.monitor.db.entity.Measurement;
+import pz.monitor.db.entity.Metric;
+import pz.monitor.db.entity.Resource;
+import pz.monitor.db.entity.Sensor;
 
 public abstract class CommonConfigurationSessionProvider extends AbstractSessionProvider {
 	@Override

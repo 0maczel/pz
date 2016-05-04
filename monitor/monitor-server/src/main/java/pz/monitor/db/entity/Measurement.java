@@ -1,4 +1,4 @@
-package pz.monitor.data.model;
+package pz.monitor.db.entity;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
