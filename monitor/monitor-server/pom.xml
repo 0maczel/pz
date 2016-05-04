@@ -10,7 +10,6 @@
 	<properties>
 		<spring.version>LATEST</spring.version>
 		<hibernate.version>5.1.0.Final</hibernate.version>
-		<postresql.version>9.4.1208.jre7</postresql.version>
 		<hsql.version>2.3.2</hsql.version>
 	</properties>
 
@@ -70,19 +69,14 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
-		<!-- Postresql Driver -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${postresql.version}</version>
-		</dependency>
-		
+		<!-- HSQL Driver -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${hsql.version}</version>
 		</dependency>
 		
+		<!-- Commons, utils, etc -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
