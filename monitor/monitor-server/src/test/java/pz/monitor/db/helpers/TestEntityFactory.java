@@ -1,4 +1,4 @@
-package pz.monitor.data;
+package pz.monitor.db.helpers;
 
 import java.time.Duration;
 import java.util.UUID;

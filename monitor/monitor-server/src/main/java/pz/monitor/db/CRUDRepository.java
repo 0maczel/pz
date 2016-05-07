@@ -11,57 +11,53 @@ import org.springframework.stereotype.Component;
 import pz.monitor.db.entity.Entity;
 
 @Component
-public class CRUDRepository implements Repository
-{
-    @Autowired
-    private SessionFactory sessionFactory;
+public class CRUDRepository implements Repository {
+	private SessionFactory sessionFactory;
 
-    @Override
-    public <T extends Entity> List<T> all(Class<T> type)
-    {
-        @SuppressWarnings("unchecked")
-        List<T> resultList = createCriteria(type).list();
-        return resultList;
-    }
+	@Autowired
+	public CRUDRepository(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    @Override
-    public <T extends Entity> T get(Class<T> type, Long id)
-    {
-        return getSession().get(type, id);
-    }
+	@Override
+	public <T extends Entity> List<T> all(Class<T> type) {
+		@SuppressWarnings("unchecked")
+		List<T> resultList = createCriteria(type).list();
+		return resultList;
+	}
 
-    @Override
-    public <T extends Entity> void save(T entity)
-    {
-        getSession().saveOrUpdate(entity);
-    }
+	@Override
+	public <T extends Entity> T get(Class<T> type, Long id) {
+		return getSession().get(type, id);
+	}
 
-    @Override
-    public <T extends Entity> void delete(T entity)
-    {
-        getSession().delete(entity);
-    }
+	@Override
+	public <T extends Entity> void save(T entity) {
+		getSession().saveOrUpdate(entity);
+	}
 
-    /**
-     * Get current thread session.
-     * 
-     * @return hibernate session
-     */
-    private Session getSession()
-    {
-        return sessionFactory.getCurrentSession();
-    }
+	@Override
+	public <T extends Entity> void delete(T entity) {
+		getSession().delete(entity);
+	}
 
-    /**
-     * Create criteria based on entity class type.
-     * 
-     * @param clazz
-     *            entity class
-     * @return criteria
-     */
-    private <T extends Entity> Criteria createCriteria(Class<T> clazz)
-    {
-        return sessionFactory.getCurrentSession().createCriteria(clazz);
-    }
+	/**
+	 * Get current thread session.
+	 * 
+	 * @return hibernate session
+	 */
+	private Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 
+	/**
+	 * Create criteria based on entity class type.
+	 * 
+	 * @param clazz
+	 *            entity class
+	 * @return criteria
+	 */
+	private <T extends Entity> Criteria createCriteria(Class<T> clazz) {
+		return sessionFactory.getCurrentSession().createCriteria(clazz);
+	}
 }

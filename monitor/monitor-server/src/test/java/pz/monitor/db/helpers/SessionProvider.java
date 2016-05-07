@@ -1,4 +1,4 @@
-package pz.monitor.data.infrastructure;
+package pz.monitor.db.helpers;
 
 import org.hibernate.Session;
 
