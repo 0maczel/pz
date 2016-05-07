@@ -7,14 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@javax.persistence.Entity
-@Table(name = "Entity")
+@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Entity
 {
@@ -28,6 +27,7 @@ public abstract class Entity
     @UpdateTimestamp
     private Timestamp updateTimestamp;
 
+    // TODO czy setter do Id jest potrzebny?
     public void setId(Long id)
     {
         this.id = id;
