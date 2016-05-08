@@ -5,6 +5,7 @@ import javax.persistence.*;
 @javax.persistence.Entity
 @Table(name="Metric")
 public class Metric extends Entity {
+	@Column(unique=true)
 	private String name;
 
 	public String getName() {

@@ -5,18 +5,23 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import pz.monitor.db.entity.Entity;
+import pz.monitor.db.query.Query;
+import pz.monitor.db.query.QueryConverter;
 
 @Component
 public class CRUDRepository implements Repository {
 	private SessionFactory sessionFactory;
+	private QueryConverter<Criteria> queryConverter;
 
 	@Autowired
-	public CRUDRepository(SessionFactory sessionFactory) {
+	public CRUDRepository(SessionFactory sessionFactory, QueryConverter<Criteria> queryConverter) {
 		this.sessionFactory = sessionFactory;
+		this.queryConverter = queryConverter;
 	}
 
 	@Override
@@ -39,6 +44,19 @@ public class CRUDRepository implements Repository {
 	@Override
 	public <T extends Entity> void delete(T entity) {
 		getSession().delete(entity);
+	}
+	
+	@Override
+	public <T extends Entity> List<T> query(Query<T> query) {
+		Criteria criteria = createCriteria(query.getType());
+		@SuppressWarnings("unchecked")
+		List<T> resultList = queryConverter.convert(query, criteria).list();
+		return resultList;
+	}
+	
+	@Override
+	public <T extends Entity> Number count(Class<T> type) {
+		return (Number) createCriteria(type).setProjection(Projections.rowCount()).uniqueResult();
 	}
 
 	/**

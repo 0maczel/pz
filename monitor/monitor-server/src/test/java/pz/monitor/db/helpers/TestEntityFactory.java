@@ -12,13 +12,13 @@ import pz.monitor.db.entity.Sensor;
 public class TestEntityFactory {
 	public static Metric getTestMetric() {
 		Metric metric = new Metric();
-		metric.setName("Test metric");
+		metric.setName("Test_metric_" + UUID.randomUUID().toString());
 		return metric;
 	}
 	
 	public static Resource getTestResource() {
 		Resource resource = new Resource();
-		resource.setName("Test resource");
+		resource.setName("Test_resource_" + UUID.randomUUID().toString());
 		return resource;
 	}
 	
@@ -40,10 +40,16 @@ public class TestEntityFactory {
 	}
 	
 	public static Measurement getTestMeasurement() {
+		Metric metric = getTestMetric();
+		Resource resource = getTestResource();
+		Sensor sensor = getTestSensor();
+		sensor.setMetric(metric);
+		sensor.setResource(resource);
+		
 		Measurement measurement = new Measurement();
-		measurement.setMetric(getTestMetric());
-		measurement.setResource(getTestResource());
-		measurement.setSensor(getTestSensor());
+		measurement.setMetric(metric);
+		measurement.setResource(resource);
+		measurement.setSensor(sensor);
 		measurement.setValue(123.456);
 		return measurement;
 	}

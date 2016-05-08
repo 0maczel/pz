@@ -25,7 +25,7 @@ public final class MemoryDatabaseSessionProvider implements SessionProvider, Ses
 				.setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbc.JDBCDriver")
 				.setProperty("hibernate.connection.username", "SA")
 				.setProperty("hibernate.connection.password", "")
-				.setProperty("hibernate.hbm2ddl.auto", "update")
+				.setProperty("hibernate.hbm2ddl.auto", "create-drop")
 				.setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:database/monitor;shutdown=true")
 				.setProperty("hibernate.current_session_context_class", "thread");
 
