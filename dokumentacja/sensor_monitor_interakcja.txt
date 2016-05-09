@@ -1,0 +1,15 @@
+title Sensor Monitor interakacja
+
+Sensor->Monitor: Rejestracja Metryki (POST /metrics)
+Monitor->Sensor: Odpowiedz z URI metryki (np. metrics/3)
+
+Sensor->Monitor: Rejestracja zasobu (POST /resources)
+Monitor->Sensor: Odpowiedz z URI zasobu (np. /resources/2)
+
+Sensor->Monitor: Rejestracja sensora zawierająca w sobie URI metryki i URI zasobu (POST /sensors)
+Monitor->Sensor: Odpowiedz z URI sensora (np. /sensors/5)
+
+
+loop Co konfigurowalny czas
+    Sensor->Monitor: Wysłanie pomiaru (POST /sensors/5/measurements)
+end
