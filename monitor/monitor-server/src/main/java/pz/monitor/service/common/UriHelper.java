@@ -47,4 +47,16 @@ public class UriHelper {
 		}
 		return resources;
 	}
+
+	public static <T extends Entity> String resourcePath(ResourceMapping<T> resourceMapping, T entity) {
+		return resourcePath(resourceMapping.getMapping(), entity.getId());
+	}
+
+	public static <T extends Entity> List<String> resourcePath(ResourceMapping<T> resourceMapping, List<T> entities) {
+		List<String> resources = new ArrayList<>();
+		for (T entity : entities) {
+			resources.add(resourcePath(resourceMapping, entity));
+		}
+		return resources;
+	}
 }
