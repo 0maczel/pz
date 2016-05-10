@@ -15,13 +15,15 @@ import pz.monitor.service.common.UriHelper;
 @Component
 public class MeasurementDtoConverter implements DtoConverter<Measurement, MeasurementDto> {
 	private Repository repository;
+	private UriHelper uriHelper;
 	private ResourceMapping<Resource> resourceMapping;
 	private ResourceMapping<Metric> metricMapping;
 
 	@Autowired
-	public MeasurementDtoConverter(Repository repository, ResourceMapping<Resource> resourceMapping,
-			ResourceMapping<Metric> metricMapping) {
+	public MeasurementDtoConverter(Repository repository, UriHelper uriHelper,
+			ResourceMapping<Resource> resourceMapping, ResourceMapping<Metric> metricMapping) {
 		this.repository = repository;
+		this.uriHelper = uriHelper;
 		this.resourceMapping = resourceMapping;
 		this.metricMapping = metricMapping;
 	}
@@ -34,8 +36,8 @@ public class MeasurementDtoConverter implements DtoConverter<Measurement, Measur
 		dto.setCreationTimestamp(entity.getCreationTimestamp());
 		dto.setUpdateTimestamp(entity.getUpdateTimestamp());
 		dto.setValue(entity.getValue());
-		dto.setResource(UriHelper.resourcePath(resourceMapping, entity.getResource()));
-		dto.setMetric(UriHelper.resourcePath(metricMapping, entity.getMetric()));
+		dto.setResource(uriHelper.resourcePath(resourceMapping, entity.getResource()));
+		dto.setMetric(uriHelper.resourcePath(metricMapping, entity.getMetric()));
 
 		return dto;
 	}
