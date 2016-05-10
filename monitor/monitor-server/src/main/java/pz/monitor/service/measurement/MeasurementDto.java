@@ -2,11 +2,15 @@ package pz.monitor.service.measurement;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import pz.monitor.service.common.Dto;
 
 public class MeasurementDto implements Dto {
 	private Long id;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss z")
 	private Timestamp creationTimestamp;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss z")
 	private Timestamp updateTimestamp;
 	private double value;
 	private String resource;

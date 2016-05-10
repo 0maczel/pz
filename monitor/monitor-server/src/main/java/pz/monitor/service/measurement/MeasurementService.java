@@ -1,10 +1,11 @@
 package pz.monitor.service.measurement;
 
-import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pz.monitor.db.Repository;
 import pz.monitor.db.entity.Measurement;
 import pz.monitor.db.query.Query;
+import pz.monitor.service.common.DateTimeHelper;
 import pz.monitor.service.common.DtoConverter;
 
 @RestController
@@ -34,11 +36,11 @@ public class MeasurementService {
 	public List<MeasurementDto> get(
 			@RequestParam(name = "resource-like", required = false) String resourceLike,
 			@RequestParam(name = "metric-like", required = false) String metricLike,
-			@RequestParam(name = "from-date", required = false) Timestamp fromDate,
-			@RequestParam(name = "to-date", required = false) Timestamp toDate,
+			@RequestParam(name = "from-date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss z") ZonedDateTime fromDate,
+			@RequestParam(name = "to-date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss z") ZonedDateTime toDate,
 			@RequestParam(name = "limit", required = false) Long limit) {
 		
-		Query<Measurement> query = queryBuilder.build(resourceLike, metricLike, fromDate, toDate, limit);
+		Query<Measurement> query = queryBuilder.build(resourceLike, metricLike, DateTimeHelper.toTimestamp(fromDate), DateTimeHelper.toTimestamp(toDate), limit);
 		
 		List<Measurement> entities = new ArrayList<>();
 		entities = repository.query(query);
