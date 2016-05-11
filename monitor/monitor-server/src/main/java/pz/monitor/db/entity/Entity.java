@@ -15,41 +15,42 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Entity
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Version
-    private int entityVersion;
-    @CreationTimestamp
-    private Timestamp creationTimestamp;
-    @UpdateTimestamp
-    private Timestamp updateTimestamp;
+public abstract class Entity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Version
+	private int entityVersion;
+	@CreationTimestamp
+	private Timestamp creationTimestamp;
+	@UpdateTimestamp
+	private Timestamp updateTimestamp;
 
-    // TODO czy setter do Id jest potrzebny?
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId()
-    {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public int getEntityVersion()
-    {
-        return entityVersion;
-    }
+	public int getEntityVersion() {
+		return entityVersion;
+	}
 
-    public Timestamp getCreationTimestamp()
-    {
-        return creationTimestamp;
-    }
+	public void setCreationTimestamp(Timestamp creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
 
-    public Timestamp getUpdateTimestamp()
-    {
-        return updateTimestamp;
-    }
+	public Timestamp getCreationTimestamp() {
+		return creationTimestamp;
+	}
+	
+	public void setUpdateTimestamp(Timestamp updateTimestamp) {
+		this.updateTimestamp = updateTimestamp;
+	}
+
+	public Timestamp getUpdateTimestamp() {
+		return updateTimestamp;
+	}
 }

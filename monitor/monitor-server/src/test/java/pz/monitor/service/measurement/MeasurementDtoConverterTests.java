@@ -3,6 +3,9 @@ package pz.monitor.service.measurement;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 import pz.monitor.db.entity.Measurement;
@@ -16,6 +19,7 @@ import pz.monitor.service.metric.MetricResourceMapping;
 import pz.monitor.service.resource.ResourceResourceMapping;
 
 public class MeasurementDtoConverterTests {
+	@SuppressWarnings("unchecked")
 	@Test
 	public void shouldBuildDto() {
 		// Arrange
@@ -29,6 +33,9 @@ public class MeasurementDtoConverterTests {
 		DtoConverter<Measurement, MeasurementDto> dtoConverter = new MeasurementDtoConverter(null, uriHelperMock,
 				resourceMapping, metricMapping);
 		Measurement entity = TestEntityFactory.getTestMeasurement();
+		entity.setId(Long.valueOf(1));
+		entity.setCreationTimestamp(Timestamp.valueOf(LocalDateTime.now()));
+		entity.setUpdateTimestamp(Timestamp.valueOf(LocalDateTime.now()));
 
 		// Act
 		MeasurementDto dto = dtoConverter.toDto(entity);

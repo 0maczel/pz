@@ -22,7 +22,7 @@ public class MeasurementQueryBuilderTests {
 	public void shouldBuildQuery_WithOrderByOnly() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilder(queryInitializer);
+		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilderImpl(queryInitializer);
 
 		String resourceLike = null;
 		String metricLike = null;
@@ -46,7 +46,7 @@ public class MeasurementQueryBuilderTests {
 	public void shouldBuildQuery_WithLimit_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilder(queryInitializer);
+		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilderImpl(queryInitializer);
 
 		String resourceLike = null;
 		String metricLike = null;
@@ -71,7 +71,7 @@ public class MeasurementQueryBuilderTests {
 	public void shouldBuildQuery_WithDates_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilder(queryInitializer);
+		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilderImpl(queryInitializer);
 
 		String resourceLike = null;
 		String metricLike = null;
@@ -105,7 +105,7 @@ public class MeasurementQueryBuilderTests {
 	public void shouldBuildQuery_WithLikes_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilder(queryInitializer);
+		MeasurementQueryBuilder queryBuilder = new MeasurementQueryBuilderImpl(queryInitializer);
 
 		String resourceLike = "%zeus%";
 		String metricLike = "%CPU%";
