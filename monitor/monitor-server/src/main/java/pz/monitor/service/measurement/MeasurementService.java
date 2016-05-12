@@ -42,8 +42,7 @@ public class MeasurementService {
 		
 		Query<Measurement> query = queryBuilder.build(resourceLike, metricLike, DateTimeHelper.toTimestamp(fromDate), DateTimeHelper.toTimestamp(toDate), limit);
 		
-		List<Measurement> entities = new ArrayList<>();
-		entities = repository.query(query);
+		List<Measurement> entities = repository.query(query);
 		
 		List<MeasurementDto> dtos = new ArrayList<>();
 		for(Measurement entity : entities) {

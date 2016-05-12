@@ -49,6 +49,10 @@ public class QaDataGenerator implements ApplicationListener<ContextRefreshedEven
 		Resource zeus = new Resource();
 		zeus.setName("Zeus");
 		
+		repository.save(pc1);
+		repository.save(pc2);
+		repository.save(zeus);
+		
 		// Sensors
 		Sensor cpuSensorAtPc1 = new Sensor();
 		cpuSensorAtPc1.setMetric(cpuUtilization);
@@ -57,6 +61,9 @@ public class QaDataGenerator implements ApplicationListener<ContextRefreshedEven
 		Sensor ramSensorAtPc1 = new Sensor();
 		ramSensorAtPc1.setMetric(ramUtilization);
 		ramSensorAtPc1.setResource(pc1);
+		
+		repository.save(cpuSensorAtPc1);
+		repository.save(ramSensorAtPc1);
 		
 		// Measurements for cpuSensorAtPc1
 		LocalDateTime dateTime = LocalDateTime.now();
