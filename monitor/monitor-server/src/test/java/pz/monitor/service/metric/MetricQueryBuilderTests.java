@@ -1,28 +1,28 @@
-package pz.monitor.service.resource;
+package pz.monitor.service.metric;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import pz.monitor.db.entity.Resource;
-import pz.monitor.db.query.Constraint.ConstraintType;
+import pz.monitor.db.entity.Metric;
 import pz.monitor.db.query.Query;
-import pz.monitor.db.query.Query.Order;
 import pz.monitor.db.query.QueryBuilder;
 import pz.monitor.db.query.QueryInitializer;
+import pz.monitor.db.query.Constraint.ConstraintType;
+import pz.monitor.db.query.Query.Order;
 
-public class ResourceQueryBuilderTests {
+public class MetricQueryBuilderTests {
 	@Test
 	public void shouldBuildQuery_WithOrderByOnly() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		ResourceQueryBuilder queryBuilder = new ResourceQueryBuilderImpl(queryInitializer);
+		MetricQueryBuilder queryBuilder = new MetricQueryBuilderImpl(queryInitializer);
 		
 		String nameLike = null;
 		
 		// Act
-		Query<Resource> query = queryBuilder.build(nameLike); 
+		Query<Metric> query = queryBuilder.build(nameLike);
 		
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
@@ -37,12 +37,12 @@ public class ResourceQueryBuilderTests {
 	public void shouldBuildQuery_WithLike_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
-		ResourceQueryBuilder queryBuilder = new ResourceQueryBuilderImpl(queryInitializer);
+		MetricQueryBuilder queryBuilder = new MetricQueryBuilderImpl(queryInitializer);
 		
-		String nameLike = "%zeus%";
+		String nameLike = "%CPU%";
 		
 		// Act
-		Query<Resource> query = queryBuilder.build(nameLike); 
+		Query<Metric> query = queryBuilder.build(nameLike);
 		
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
