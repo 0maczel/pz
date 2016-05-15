@@ -77,4 +77,30 @@ public class ResourceServiceTests {
 		// Assert
 		assertThat(dtos, contains(expectedDto1, expectedDto2));
 	}
+	
+	@Test
+	public void shouldReturnResourceDtoOfNewlyCreatedResource_WhenPostAResourceDto() {
+		// Arrange
+		ResourceDto inputDto = new ResourceDto();
+		ResourceDto expectedDto = new ResourceDto();
+		Resource expectedEntity = new Resource();
+		
+		Repository repository = Mockito.mock(Repository.class);
+		
+		@SuppressWarnings("unchecked")
+		DtoConverter<Resource, ResourceDto> dtoConverter = Mockito.mock(DtoConverter.class);
+		Mockito.when(dtoConverter.toEntity(inputDto)).thenReturn(expectedEntity);
+		Mockito.when(dtoConverter.toDto(expectedEntity)).thenReturn(expectedDto);
+		
+		ResourceService service = new ResourceService();
+		service.repository = repository;
+		service.dtoConverter = dtoConverter;
+		
+		// Act
+		ResourceDto dto = service.post(inputDto);
+		
+		// Assert
+		assertThat(dto, is(expectedDto));
+		Mockito.verify(repository).save(expectedEntity);
+	}
 }

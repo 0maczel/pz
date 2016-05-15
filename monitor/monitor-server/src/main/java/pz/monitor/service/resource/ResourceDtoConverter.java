@@ -1,6 +1,5 @@
 package pz.monitor.service.resource;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Component;
 
 import pz.monitor.db.entity.Resource;
@@ -19,8 +18,9 @@ public class ResourceDtoConverter implements DtoConverter<Resource, ResourceDto>
 
 	@Override
 	public Resource toEntity(ResourceDto dto) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException("To be implemented.");
+		Resource entity = new Resource();
+		entity.setName(dto.getName());
+		return entity;
 	}
 
 }
