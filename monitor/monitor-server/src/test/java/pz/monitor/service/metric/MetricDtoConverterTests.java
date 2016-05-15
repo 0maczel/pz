@@ -2,6 +2,7 @@ package pz.monitor.service.metric;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -26,5 +27,23 @@ public class MetricDtoConverterTests {
 		assertThat(dto, notNullValue());
 		assertThat(dto.getId(), is(entity.getId()));
 		assertThat(dto.getName(), is(entity.getName()));
+	}
+
+	@Test
+	public void shouldBuildEntity() {
+		// Arrange
+		DtoConverter<Metric, MetricDto> dtoConverter = new MetricDtoConverter();
+		MetricDto dto = new MetricDto();
+		dto.setName("Test metric");
+
+		// Act
+		Metric entity = dtoConverter.toEntity(dto);
+
+		// Assert
+		assertThat(entity.getId(), is(nullValue()));
+		assertThat(entity.getEntityVersion(), is(0));
+		assertThat(entity.getCreationTimestamp(), is(nullValue()));
+		assertThat(entity.getUpdateTimestamp(), is(nullValue()));
+		assertThat(entity.getName(), is(dto.getName()));
 	}
 }
