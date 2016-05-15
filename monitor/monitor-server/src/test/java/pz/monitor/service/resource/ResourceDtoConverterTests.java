@@ -18,26 +18,26 @@ public class ResourceDtoConverterTests {
 		Resource entity = TestEntityFactory.getTestResource();
 		entity.setId(Long.valueOf(1));
 		entity.setName("Test resource");
-		
+
 		// Act
 		ResourceDto dto = dtoConverter.toDto(entity);
-		
+
 		// Assert
 		assertThat(dto, notNullValue());
 		assertThat(dto.getId(), is(entity.getId()));
 		assertThat(dto.getName(), is(entity.getName()));
 	}
-	
+
 	@Test
 	public void shouldBuildEntity() {
 		// Arrange
 		DtoConverter<Resource, ResourceDto> dtoConverter = new ResourceDtoConverter();
 		ResourceDto dto = new ResourceDto();
 		dto.setName("Test resource");
-		
+
 		// Act
 		Resource entity = dtoConverter.toEntity(dto);
-		
+
 		// Assert
 		assertThat(entity.getId(), is(nullValue()));
 		assertThat(entity.getEntityVersion(), is(0));
