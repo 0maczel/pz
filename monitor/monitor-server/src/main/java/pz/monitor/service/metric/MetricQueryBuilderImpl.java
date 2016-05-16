@@ -12,16 +12,17 @@ import pz.monitor.db.query.QueryInitializer;
 @Component
 public class MetricQueryBuilderImpl implements MetricQueryBuilder {
 	private QueryInitializer queryInitializer;
-	
+
 	@Autowired
 	public MetricQueryBuilderImpl(QueryInitializer queryInitializer) {
 		this.queryInitializer = queryInitializer;
 	}
-	
+
 	@Override
 	public Query<Metric> build(String nameLike) {
 		QueryConstraint<Metric> queryConstraint = queryInitializer.queryFor(Metric.class);
-		if(nameLike != null) queryConstraint = queryConstraint.that("name", Is.like(nameLike)).and();
+		if (nameLike != null)
+			queryConstraint = queryConstraint.that("name", Is.like(nameLike)).and();
 		Query<Metric> query = queryConstraint.orderBy("id").asc().build();
 		return query;
 	}

@@ -23,35 +23,35 @@ import pz.monitor.service.common.DtoConverter;
 public class MetricService {
 	@Autowired
 	Repository repository;
-	
+
 	@Autowired
 	DtoConverter<Metric, MetricDto> dtoConverter;
-	
+
 	@Autowired
 	MetricQueryBuilder queryBuilder;
-	
+
 	@RequestMapping(path = "/metrics", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public List<MetricDto> get(@RequestParam(name = "name-like", required = false) String nameLike) {
 		Query<Metric> query = queryBuilder.build(nameLike);
-		
+
 		List<Metric> entities = repository.query(query);
-		
+
 		List<MetricDto> dtos = new ArrayList<>();
 		for (Metric entity : entities) {
 			MetricDto dto = dtoConverter.toDto(entity);
 			dtos.add(dto);
 		}
-		
+
 		return dtos;
 	}
-	
+
 	@RequestMapping(path = "/metrics/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public MetricDto get(@PathVariable Long id) {
 		Metric entity = repository.get(Metric.class, id);
 		MetricDto dto = dtoConverter.toDto(entity);
 		return dto;
 	}
-	
+
 	@RequestMapping(path = "/metrics", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public MetricDto post(@RequestBody MetricDto dto) {
 		Metric entity = dtoConverter.toEntity(dto);

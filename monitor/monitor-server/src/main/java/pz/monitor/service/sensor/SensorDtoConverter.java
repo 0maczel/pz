@@ -15,9 +15,10 @@ public class SensorDtoConverter implements DtoConverter<Sensor, SensorDto> {
 	private UriHelper uriHelper;
 	private ResourceMapping<Resource> resourceMapping;
 	private ResourceMapping<Metric> metricMapping;
-	
+
 	@Autowired
-	public SensorDtoConverter(UriHelper uriHelper, ResourceMapping<Resource> resourceMapping, ResourceMapping<Metric> metricMapping) {
+	public SensorDtoConverter(UriHelper uriHelper, ResourceMapping<Resource> resourceMapping,
+			ResourceMapping<Metric> metricMapping) {
 		this.uriHelper = uriHelper;
 		this.resourceMapping = resourceMapping;
 		this.metricMapping = metricMapping;
@@ -34,8 +35,7 @@ public class SensorDtoConverter implements DtoConverter<Sensor, SensorDto> {
 
 	@Override
 	public Sensor toEntity(SensorDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Sensor dto to entity not supported");
 	}
 
 }

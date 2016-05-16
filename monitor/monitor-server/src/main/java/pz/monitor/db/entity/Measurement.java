@@ -7,7 +7,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @javax.persistence.Entity
-@Table(name="Measurement")
+@Table(name = "Measurement")
 public class Measurement extends Entity {
 	@ManyToOne
 	@Cascade(CascadeType.SAVE_UPDATE)

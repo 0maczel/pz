@@ -18,12 +18,12 @@ public class ResourceQueryBuilderTests {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
 		ResourceQueryBuilder queryBuilder = new ResourceQueryBuilderImpl(queryInitializer);
-		
+
 		String nameLike = null;
-		
+
 		// Act
-		Query<Resource> query = queryBuilder.build(nameLike); 
-		
+		Query<Resource> query = queryBuilder.build(nameLike);
+
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
 		assertThat(query.getOrderProperties().get(0).property, is("id"));
@@ -32,18 +32,18 @@ public class ResourceQueryBuilderTests {
 		assertThat(query.getDirectConstraints().size(), is(0));
 		assertThat(query.getIndirectConstraints().size(), is(0));
 	}
-	
+
 	@Test
 	public void shouldBuildQuery_WithLike_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
 		ResourceQueryBuilder queryBuilder = new ResourceQueryBuilderImpl(queryInitializer);
-		
+
 		String nameLike = "%zeus%";
-		
+
 		// Act
-		Query<Resource> query = queryBuilder.build(nameLike); 
-		
+		Query<Resource> query = queryBuilder.build(nameLike);
+
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
 		assertThat(query.getOrderProperties().get(0).property, is("id"));

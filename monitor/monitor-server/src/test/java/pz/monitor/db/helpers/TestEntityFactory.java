@@ -15,21 +15,20 @@ public class TestEntityFactory {
 		metric.setName("Test_metric_" + UUID.randomUUID().toString());
 		return metric;
 	}
-	
+
 	public static Resource getTestResource() {
 		Resource resource = new Resource();
 		resource.setName("Test_resource_" + UUID.randomUUID().toString());
 		return resource;
 	}
-	
+
 	public static Sensor getTestSensor() {
 		Sensor sensor = new Sensor();
-		sensor.setExternalSystemId(UUID.randomUUID().toString());
 		sensor.setMetric(getTestMetric());
 		sensor.setResource(getTestResource());
 		return sensor;
 	}
-	
+
 	public static ComplexMeasurement getTestComplexMeasurement() {
 		ComplexMeasurement complesMeasurement = new ComplexMeasurement();
 		complesMeasurement.setMetric(getTestMetric());
@@ -38,14 +37,14 @@ public class TestEntityFactory {
 		complesMeasurement.setWindowInterval(Duration.ofMinutes(1));
 		return complesMeasurement;
 	}
-	
+
 	public static Measurement getTestMeasurement() {
 		Metric metric = getTestMetric();
 		Resource resource = getTestResource();
 		Sensor sensor = getTestSensor();
 		sensor.setMetric(metric);
 		sensor.setResource(resource);
-		
+
 		Measurement measurement = new Measurement();
 		measurement.setMetric(metric);
 		measurement.setResource(resource);

@@ -82,8 +82,8 @@ public class QueryTests {
 		QueryInitializer queryBuilder = new QueryBuilder();
 
 		// Act
-		Query<Metric> query = queryBuilder.queryFor(Metric.class).orderBy("name").asc().and().orderBy("creationTimestamp")
-				.desc().and().withMaxResults(10).build();
+		Query<Metric> query = queryBuilder.queryFor(Metric.class).orderBy("name").asc().and()
+				.orderBy("creationTimestamp").desc().and().withMaxResults(10).build();
 
 		// Assert
 		assertEquals(Metric.class, query.getType());
@@ -104,8 +104,8 @@ public class QueryTests {
 		QueryInitializer queryBuilder = new QueryBuilder();
 
 		// Act
-		Query<Measurement> query = queryBuilder.queryFor(Measurement.class).with("metric").that("name", Is.like("%CPU%")).and()
-				.with("resource").that("name", Is.like("%zeus%")).build();
+		Query<Measurement> query = queryBuilder.queryFor(Measurement.class).with("metric")
+				.that("name", Is.like("%CPU%")).and().with("resource").that("name", Is.like("%zeus%")).build();
 
 		// Assert
 		assertEquals(Measurement.class, query.getType());
@@ -129,15 +129,16 @@ public class QueryTests {
 		Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
 		// Act
-		// Controversial as 'that' after 'and' returns to 'queryFor' class level, not stays at referenced type level
-		Query<Measurement> query = queryBuilder.queryFor(Measurement.class).that("id", Is.greaterThan(50)).and().with("metric")
-				.that("name", Is.equalTo("CPU")).and().that("creationTimestamp", Is.lessThan(timestamp)).and()
-				.with("resource").that("name", Is.like("zeus%")).and().orderBy("creationTimestamp").desc().and()
+		// Controversial as 'that' after 'and' returns to 'queryFor' class
+		// level, not stays at referenced type level
+		Query<Measurement> query = queryBuilder.queryFor(Measurement.class).that("id", Is.greaterThan(50)).and()
+				.with("metric").that("name", Is.equalTo("CPU")).and().that("creationTimestamp", Is.lessThan(timestamp))
+				.and().with("resource").that("name", Is.like("zeus%")).and().orderBy("creationTimestamp").desc().and()
 				.orderBy("value").asc().and().withMaxResults(150).build();
-		
+
 		// Assert
 		assertEquals(Measurement.class, query.getType());
-		
+
 		assertEquals(2, query.getDirectConstraints().size());
 		assertEquals("id", query.getDirectConstraints().get(0).propertyName);
 		assertEquals(ConstraintType.GT, query.getDirectConstraints().get(0).constraint.type);
@@ -145,7 +146,7 @@ public class QueryTests {
 		assertEquals("creationTimestamp", query.getDirectConstraints().get(1).propertyName);
 		assertEquals(ConstraintType.LT, query.getDirectConstraints().get(1).constraint.type);
 		assertEquals(timestamp, query.getDirectConstraints().get(1).constraint.value);
-		
+
 		assertEquals(2, query.getIndirectConstraints().size());
 		assertEquals("metric", query.getIndirectConstraints().get(0).referencePropertyName);
 		assertEquals("name", query.getIndirectConstraints().get(0).propertyName);
@@ -155,12 +156,12 @@ public class QueryTests {
 		assertEquals("name", query.getIndirectConstraints().get(1).propertyName);
 		assertEquals(ConstraintType.LIKE, query.getIndirectConstraints().get(1).constraint.type);
 		assertEquals("zeus%", query.getIndirectConstraints().get(1).constraint.value);
-		
+
 		assertEquals("creationTimestamp", query.getOrderProperties().get(0).property);
 		assertEquals(Order.DESC, query.getOrderProperties().get(0).order);
 		assertEquals("value", query.getOrderProperties().get(1).property);
 		assertEquals(Order.ASC, query.getOrderProperties().get(1).order);
-		
+
 		assertTrue(query.isWithMaxResults());
 		assertEquals(150, query.getMaxResults());
 	}

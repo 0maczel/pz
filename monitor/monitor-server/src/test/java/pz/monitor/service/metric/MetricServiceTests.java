@@ -77,28 +77,28 @@ public class MetricServiceTests {
 		// Assert
 		assertThat(dtos, contains(expectedDto1, expectedDto2));
 	}
-	
+
 	@Test
 	public void shouldReturnMetricDtoOfNewlyCreatedMetric_WhenPostAMetricDto() {
 		// Arrange
 		MetricDto inputDto = new MetricDto();
 		MetricDto expectedDto = new MetricDto();
 		Metric expectedEntity = new Metric();
-		
+
 		Repository repository = Mockito.mock(Repository.class);
-		
+
 		@SuppressWarnings("unchecked")
 		DtoConverter<Metric, MetricDto> dtoConverter = Mockito.mock(DtoConverter.class);
 		Mockito.when(dtoConverter.toEntity(inputDto)).thenReturn(expectedEntity);
 		Mockito.when(dtoConverter.toDto(expectedEntity)).thenReturn(expectedDto);
-		
+
 		MetricService service = new MetricService();
 		service.repository = repository;
 		service.dtoConverter = dtoConverter;
-		
+
 		// Act
 		MetricDto dto = service.post(inputDto);
-		
+
 		// Assert
 		assertThat(dto, is(expectedDto));
 		Mockito.verify(repository).save(expectedEntity);

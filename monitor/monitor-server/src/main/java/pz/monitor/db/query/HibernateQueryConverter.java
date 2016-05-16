@@ -49,7 +49,7 @@ public class HibernateQueryConverter implements QueryConverter<Criteria> {
 
 		for (String referencePropertyName : byProperty.keySet()) {
 			Criteria rooted = target.createCriteria(referencePropertyName);
-			
+
 			Criterion restriction = null;
 			List<Query<Q>.IndirectConstraintEntry> constraints = byProperty.get(referencePropertyName);
 			for (Query<Q>.IndirectConstraintEntry entry : constraints) {

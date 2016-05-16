@@ -18,12 +18,12 @@ public class MetricQueryBuilderTests {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
 		MetricQueryBuilder queryBuilder = new MetricQueryBuilderImpl(queryInitializer);
-		
+
 		String nameLike = null;
-		
+
 		// Act
 		Query<Metric> query = queryBuilder.build(nameLike);
-		
+
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
 		assertThat(query.getOrderProperties().get(0).property, is("id"));
@@ -32,18 +32,18 @@ public class MetricQueryBuilderTests {
 		assertThat(query.getDirectConstraints().size(), is(0));
 		assertThat(query.getIndirectConstraints().size(), is(0));
 	}
-	
+
 	@Test
 	public void shouldBuildQuery_WithLike_AndOrderBy() {
 		// Arrange
 		QueryInitializer queryInitializer = new QueryBuilder();
 		MetricQueryBuilder queryBuilder = new MetricQueryBuilderImpl(queryInitializer);
-		
+
 		String nameLike = "%CPU%";
-		
+
 		// Act
 		Query<Metric> query = queryBuilder.build(nameLike);
-		
+
 		// Assert
 		assertThat(query.getOrderProperties().size(), is(1));
 		assertThat(query.getOrderProperties().get(0).property, is("id"));

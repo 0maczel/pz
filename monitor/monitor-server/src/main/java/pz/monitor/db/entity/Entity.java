@@ -45,7 +45,7 @@ public abstract class Entity {
 	public Timestamp getCreationTimestamp() {
 		return creationTimestamp;
 	}
-	
+
 	public void setUpdateTimestamp(Timestamp updateTimestamp) {
 		this.updateTimestamp = updateTimestamp;
 	}

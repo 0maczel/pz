@@ -21,14 +21,20 @@ public class MeasurementQueryBuilderImpl implements MeasurementQueryBuilder {
 	}
 
 	@Override
-	public Query<Measurement> build(String resourceLike, String metricLike, Timestamp fromDate, Timestamp toDate, Long limit) {		
+	public Query<Measurement> build(String resourceLike, String metricLike, Timestamp fromDate, Timestamp toDate,
+			Long limit) {
 		QueryConstraint<Measurement> queryConstraint = queryInitializer.queryFor(Measurement.class);
-		if(resourceLike != null) queryConstraint = queryConstraint.with("resource").that("name", Is.like(resourceLike)).and();
-		if(metricLike != null) queryConstraint = queryConstraint.with("metric").that("name", Is.like(metricLike)).and();
-		if(fromDate != null) queryConstraint = queryConstraint.that("creationTimestamp", Is.greaterThan(fromDate)).and();
-		if(toDate != null) queryConstraint = queryConstraint.that("creationTimestamp", Is.lessThan(toDate)).and();
-		if(limit != null) queryConstraint = queryConstraint.withMaxResults(limit.intValue()).and();
-		
+		if (resourceLike != null)
+			queryConstraint = queryConstraint.with("resource").that("name", Is.like(resourceLike)).and();
+		if (metricLike != null)
+			queryConstraint = queryConstraint.with("metric").that("name", Is.like(metricLike)).and();
+		if (fromDate != null)
+			queryConstraint = queryConstraint.that("creationTimestamp", Is.greaterThan(fromDate)).and();
+		if (toDate != null)
+			queryConstraint = queryConstraint.that("creationTimestamp", Is.lessThan(toDate)).and();
+		if (limit != null)
+			queryConstraint = queryConstraint.withMaxResults(limit.intValue()).and();
+
 		Query<Measurement> query = queryConstraint.orderBy("creationTimestamp").desc().build();
 		return query;
 	}

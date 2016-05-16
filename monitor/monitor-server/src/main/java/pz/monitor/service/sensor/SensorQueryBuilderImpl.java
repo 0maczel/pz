@@ -21,8 +21,10 @@ public class SensorQueryBuilderImpl implements SensorQueryBuilder {
 	@Override
 	public Query<Sensor> build(String resourceName, String metricName) {
 		QueryConstraint<Sensor> queryConstraint = queryInitializer.queryFor(Sensor.class);
-		if(resourceName != null) queryConstraint = queryConstraint.with("resource").that("name", Is.equalTo(resourceName)).and();
-		if(metricName != null) queryConstraint = queryConstraint.with("metric").that("name", Is.equalTo(metricName)).and();
+		if (resourceName != null)
+			queryConstraint = queryConstraint.with("resource").that("name", Is.equalTo(resourceName)).and();
+		if (metricName != null)
+			queryConstraint = queryConstraint.with("metric").that("name", Is.equalTo(metricName)).and();
 		Query<Sensor> query = queryConstraint.orderBy("id").asc().build();
 		return query;
 	}

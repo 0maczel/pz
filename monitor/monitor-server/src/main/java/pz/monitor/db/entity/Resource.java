@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Table;
 
 @javax.persistence.Entity
-@Table(name="Resource")
+@Table(name = "Resource")
 public class Resource extends Entity {
-	@Column(unique=true)
+	@Column(unique = true)
 	private String name;
 
 	public String getName() {

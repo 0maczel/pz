@@ -153,7 +153,6 @@ public class ModelMappingTests {
 				assertEquals(sensorToSave.getEntityVersion(), s.getEntityVersion());
 				assertEquals(sensorToSave.getCreationTimestamp(), s.getCreationTimestamp());
 				assertEquals(sensorToSave.getUpdateTimestamp(), s.getUpdateTimestamp());
-				assertEquals(sensorToSave.getExternalSystemId(), s.getExternalSystemId());
 				assertEquals(sensorToSave.getMetric().getId(), s.getMetric().getId());
 				assertEquals(sensorToSave.getMetric().getName(), s.getMetric().getName());
 				assertEquals(sensorToSave.getResource().getId(), s.getResource().getId());

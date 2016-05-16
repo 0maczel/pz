@@ -45,7 +45,7 @@ public class CRUDRepository implements Repository {
 	public <T extends Entity> void delete(T entity) {
 		getSession().delete(entity);
 	}
-	
+
 	@Override
 	public <T extends Entity> List<T> query(Query<T> query) {
 		Criteria criteria = createCriteria(query.getType());
@@ -53,7 +53,7 @@ public class CRUDRepository implements Repository {
 		List<T> resultList = queryConverter.convert(query, criteria).list();
 		return resultList;
 	}
-	
+
 	@Override
 	public <T extends Entity> Number count(Class<T> type) {
 		return (Number) createCriteria(type).setProjection(Projections.rowCount()).uniqueResult();

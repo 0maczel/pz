@@ -25,31 +25,31 @@ import pz.monitor.service.common.DtoConverter;
 public class MeasurementService {
 	@Autowired
 	Repository repository;
-	
+
 	@Autowired
 	DtoConverter<Measurement, MeasurementDto> dtoConverter;
-	
+
 	@Autowired
 	MeasurementQueryBuilder queryBuilder;
 
 	@RequestMapping(path = "/measurements", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public List<MeasurementDto> get(
-			@RequestParam(name = "resource-like", required = false) String resourceLike,
+	public List<MeasurementDto> get(@RequestParam(name = "resource-like", required = false) String resourceLike,
 			@RequestParam(name = "metric-like", required = false) String metricLike,
-			@RequestParam(name = "from-date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss z") ZonedDateTime fromDate,
-			@RequestParam(name = "to-date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss z") ZonedDateTime toDate,
+			@RequestParam(name = "from-date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss z") ZonedDateTime fromDate,
+			@RequestParam(name = "to-date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss z") ZonedDateTime toDate,
 			@RequestParam(name = "limit", required = false) Long limit) {
-		
-		Query<Measurement> query = queryBuilder.build(resourceLike, metricLike, DateTimeHelper.toTimestamp(fromDate), DateTimeHelper.toTimestamp(toDate), limit);
-		
+
+		Query<Measurement> query = queryBuilder.build(resourceLike, metricLike, DateTimeHelper.toTimestamp(fromDate),
+				DateTimeHelper.toTimestamp(toDate), limit);
+
 		List<Measurement> entities = repository.query(query);
-		
+
 		List<MeasurementDto> dtos = new ArrayList<>();
-		for(Measurement entity : entities) {
+		for (Measurement entity : entities) {
 			MeasurementDto dto = dtoConverter.toDto(entity);
 			dtos.add(dto);
 		}
-		
+
 		return dtos;
 	}
 

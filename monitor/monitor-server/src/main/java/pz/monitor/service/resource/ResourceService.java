@@ -51,7 +51,7 @@ public class ResourceService {
 		ResourceDto dto = dtoConverter.toDto(entity);
 		return dto;
 	}
-	
+
 	@RequestMapping(path = "/resources", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public ResourceDto post(@RequestBody ResourceDto dto) {
 		Resource entity = dtoConverter.toEntity(dto);
