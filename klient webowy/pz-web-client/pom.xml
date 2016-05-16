@@ -12,6 +12,14 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- Monitor -->
+		<dependency>
+			<groupId>pz.monitor</groupId>
+			<artifactId>monitor-server</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
