@@ -21,16 +21,22 @@ public class SensorService {
     public List<SensorDto> getSensor(String resourceName, String metricName) {
         RestTemplate template = new RestTemplate();
 
-        URI targetUri = UriComponentsBuilder.
+        UriComponentsBuilder builder = UriComponentsBuilder.
                 fromUriString(endpoint).
-                path("/sensors").
-                queryParam("resource-name", resourceName).
-                queryParam("metric-name", metricName).
-                build().toUri();
+                path("/sensors");
+
+        if (!StringUtils.isEmpty(resourceName))
+            builder.queryParam("resource-name", resourceName);
+
+        if (!StringUtils.isEmpty(metricName))
+            builder.queryParam("metric-name", metricName);
+
+        URI targetUri = builder.build().toUri();
 
         return template.getForObject(targetUri, List.class);
 
     }
+
     public SensorDto getSensorById(Long id) {
         RestTemplate template = new RestTemplate();
 
