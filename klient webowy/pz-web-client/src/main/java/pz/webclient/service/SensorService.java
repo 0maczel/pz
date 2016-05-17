@@ -43,7 +43,7 @@ public class SensorService {
         URI targetUri = UriComponentsBuilder.
                 fromUriString(endpoint).
                 path("/sensors").
-                pathSegment("/" + String.valueOf(id)).
+                pathSegment(String.valueOf(id)).
                 build().toUri();
 
         return template.getForObject(targetUri, SensorDto.class);

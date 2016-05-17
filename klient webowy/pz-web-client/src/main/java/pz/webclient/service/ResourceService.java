@@ -38,7 +38,7 @@ public class ResourceService {
         URI targetUri = UriComponentsBuilder.
                 fromUriString(endpoint).
                 path("/resources").
-                pathSegment("/" + String.valueOf(id)).
+                pathSegment(String.valueOf(id)).
                 build().toUri();
 
         return template.getForObject(targetUri, ResourceDto.class);

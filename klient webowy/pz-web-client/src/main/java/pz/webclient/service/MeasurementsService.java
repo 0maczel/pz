@@ -23,7 +23,7 @@ public class MeasurementsService {
         URI targetUri = UriComponentsBuilder.
                 fromUriString(endpoint).
                 path("/measurements").
-                pathSegment("/" + String.valueOf(id)).
+                pathSegment(String.valueOf(id)).
                 build().toUri();
 
         return template.getForObject(targetUri, MeasurementDto.class);

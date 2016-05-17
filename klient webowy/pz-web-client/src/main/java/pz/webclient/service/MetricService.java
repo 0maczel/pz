@@ -38,7 +38,7 @@ public class MetricService {
         URI targetUri = UriComponentsBuilder.
                 fromUriString(endpoint).
                 path("/metrics").
-                pathSegment("/" + String.valueOf(id)).
+                pathSegment(String.valueOf(id)).
                 build().toUri();
 
         return template.getForObject(targetUri, MetricDto.class);
