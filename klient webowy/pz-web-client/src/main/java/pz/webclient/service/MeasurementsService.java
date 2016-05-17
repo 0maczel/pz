@@ -37,19 +37,19 @@ public class MeasurementsService {
                 fromUriString(endpoint).
                 path("/measurements");
 
-        if(!StringUtils.isEmpty(resourceLike))
+        if (!StringUtils.isEmpty(resourceLike))
             builder.queryParam("resource-like", resourceLike);
 
-        if(!StringUtils.isEmpty(metricLike))
+        if (!StringUtils.isEmpty(metricLike))
             builder.queryParam("metric-like", metricLike);
 
-        if(fromDate != null)
+        if (fromDate != null)
             builder.queryParam("from-date", fromDate);
 
-        if(toDate != null)
+        if (toDate != null)
             builder.queryParam("to-date", toDate);
 
-        if(limit > 0)
+        if (limit > 0)
             builder.queryParam("limit", limit);
 
         URI targetUri = builder.build().toUri();
