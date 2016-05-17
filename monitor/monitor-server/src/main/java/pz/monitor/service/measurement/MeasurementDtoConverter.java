@@ -44,8 +44,7 @@ public class MeasurementDtoConverter implements DtoConverter<Measurement, Measur
 
 	@Override
 	public Measurement toEntity(MeasurementDto dto) {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException("To be implemented.");
+		throw new UnsupportedOperationException("Measurement dto to entity not supported"); // HMM???
 	}
 
 }
