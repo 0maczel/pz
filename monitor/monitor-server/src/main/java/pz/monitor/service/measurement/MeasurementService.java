@@ -73,11 +73,8 @@ public class MeasurementService {
 	
 	
 	@RequestMapping(path = "/sensors/{sensorId}/measurements", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public MeasurementDto add(@PathVariable Long sensorId, @RequestBody MeasurementDto measurementDto){	//Dto really?
-		
-		System.out.println("Dziala?");
-		System.out.println("A to?" + sensorId + " " + measurementDto);
-		
+	public MeasurementDto add(@PathVariable Long sensorId, @RequestBody MeasurementDto measurementDto){
+
 		Measurement measurement = new Measurement();
 		requireNonNull(measurementDto, "Measurement identifier required.");
 		
@@ -86,21 +83,10 @@ public class MeasurementService {
 		measurement.setSensor(reportingSensor);
 		measurement.setMetric(reportingSensor.getMetric());
 		measurement.setResource(reportingSensor.getResource());
-		measurement.setValue( measurementDto.getValue() );		////
+		measurement.setValue( measurementDto.getValue() );
 
 		repository.save(measurement);
 		return dtoConverter.toDto(measurement);
 	}
-	
-	@SuppressWarnings("serial")
-	class NotKnownSensorException extends Exception {
-		  public NotKnownSensorException() { super(); }
-		  public NotKnownSensorException(String message) { super(message); }
-		  public NotKnownSensorException(String message, Throwable cause) { super(message, cause); }
-		  public NotKnownSensorException(Throwable cause) { super(cause); }
-	}
-	
-	
-
 	
 }
