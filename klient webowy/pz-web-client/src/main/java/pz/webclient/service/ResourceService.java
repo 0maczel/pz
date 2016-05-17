@@ -2,6 +2,7 @@ package pz.webclient.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pz.monitor.service.resource.ResourceDto;
@@ -19,11 +20,14 @@ public class ResourceService {
     public List<ResourceDto> getResourceByName(String name) {
         RestTemplate template = new RestTemplate();
 
-        URI targetUri = UriComponentsBuilder.
+        UriComponentsBuilder builder = UriComponentsBuilder.
                 fromUriString(endpoint).
-                path("/resources").
-                queryParam("name-like", name).
-                build().toUri();
+                path("/resources");
+
+        if (!StringUtils.isEmpty(name))
+            builder.queryParam("name-like", name);
+
+        URI targetUri = builder.build().toUri();
 
         return template.getForObject(targetUri, List.class);
     }
