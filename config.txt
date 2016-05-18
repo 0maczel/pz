@@ -1,0 +1,8 @@
+{
+    "interval": "5",
+    "monitorURL": "http://localhost:8080",
+    "metrics": [
+        {"metricName": "CPU"}, 
+        {"metricName": "MEM"}
+    ]
+}
