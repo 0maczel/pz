@@ -8,10 +8,14 @@ package pz.pzsensor.config;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,7 +46,13 @@ public class Config {
     final String METRIC_TAG_NAME = "metricName";
     
     public Config(){
-        systemName = System.getProperty("os.name");
+        try {
+            InetAddress addr;
+            addr = InetAddress.getLocalHost();
+            systemName = addr.getHostName();
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void read(String filename){
