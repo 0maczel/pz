@@ -8,6 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pz.monitor.service.sensor.SensorDto;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,8 +18,6 @@ public class SensorService {
     @Value("${apiEndpoint}")
     String endpoint;
 
-
-    @SuppressWarnings("unchecked")
     public List<SensorDto> getSensor(String resourceName, String metricName) {
         RestTemplate template = new RestTemplate();
 
@@ -32,8 +32,8 @@ public class SensorService {
             builder.queryParam("metric-name", metricName);
 
         URI targetUri = builder.build().toUri();
-
-        return template.getForObject(targetUri, List.class);
+        SensorDto [] sensorDtos = template.getForObject(targetUri, SensorDto[].class);
+        return Arrays.asList(sensorDtos);
 
     }
 

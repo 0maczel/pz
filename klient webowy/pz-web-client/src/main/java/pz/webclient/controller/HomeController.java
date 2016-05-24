@@ -7,16 +7,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO usunac pozniej
 @Controller
-public class IndexController {
+public class HomeController {
 
-	@RequestMapping("/index")
+	@RequestMapping(path = "/")
 	public ModelAndView hello(ModelAndView modelAndView) {
-		modelAndView.setViewName("index");
-		List<String> prefixes = new ArrayList<>();
-		prefixes.add("blabla");
-		modelAndView.addObject("monitorsPrefixes", prefixes);
-		return modelAndView;
+		return new ModelAndView("redirect:/resources");
 	}
 }

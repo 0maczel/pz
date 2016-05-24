@@ -9,15 +9,28 @@
 
 	<properties>
 		<org.springframework-version>4.2.5.RELEASE</org.springframework-version>
+		<jackson.version>2.7.4</jackson.version>
 	</properties>
 
 	<dependencies>
-
-		<!-- Monitor -->
+		<!-- Monitor DTOs -->
 		<dependency>
 			<groupId>pz.monitor</groupId>
 			<artifactId>monitor-server</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>*</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
 		</dependency>
 
 		<!-- Spring -->
@@ -33,6 +46,18 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!--  Required for REST. -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<!-- Test -->
