@@ -20,7 +20,7 @@ import pz.monitor.service.sensor.SensorDto;
  *
  */
 @Service
-public class ResourceMetricsService {
+public class ResourceMetricService {
 	@Autowired
 	private SensorService sensorService;
 	@Autowired
@@ -46,4 +46,5 @@ public class ResourceMetricsService {
 		}
 		return metricsDtos;
 	}
+	
 }

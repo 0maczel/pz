@@ -9,6 +9,7 @@ import pz.monitor.service.measurement.MeasurementDto;
 
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -29,7 +30,6 @@ public class MeasurementsService {
         return template.getForObject(targetUri, MeasurementDto.class);
     }
 
-    @SuppressWarnings("unchecked")
     public List<MeasurementDto> getMeasurements(String resourceLike, String metricLike, ZonedDateTime fromDate, ZonedDateTime toDate, Long limit) {
         RestTemplate template = new RestTemplate();
 
@@ -53,8 +53,8 @@ public class MeasurementsService {
             builder.queryParam("limit", limit);
 
         URI targetUri = builder.build().toUri();
-
-        return template.getForObject(targetUri, List.class);
+        MeasurementDto[] measurements = template.getForObject(targetUri, MeasurementDto[].class);
+        return Arrays.asList(measurements);
     }
 
 }

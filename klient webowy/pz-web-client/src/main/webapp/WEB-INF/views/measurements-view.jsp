@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -96,9 +97,10 @@
 								<tr class="link">
 									<td>${loopCounter.index + 1}</td>
 									<td>${measurement.creationTimestamp}</td>
-									<td>${measurement.resource}</td>
-									<td>${measurement.metric}</td>
-									<td>${measurement.value}</td>
+									<td><a href="/pz-web-client/resources/${resources[loopCounter.index].id}">${resources[loopCounter.index].name}</a></td>
+									<td><a href="/pz-web-client/metrics/${metrics[loopCounter.index].id}">${metrics[loopCounter.index].name}</a></td>
+<%-- 									<td>	${measurement.value}	</td> --%>
+									<td><fmt:formatNumber type="number" maxFractionDigits="4" value="${measurement.value}" /></td>
 								</tr>
 						
 						</c:forEach>

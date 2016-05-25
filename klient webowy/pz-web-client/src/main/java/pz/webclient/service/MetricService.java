@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pz.monitor.service.metric.MetricDto;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,7 +17,6 @@ public class MetricService {
     @Value("${apiEndpoint}")
     String endpoint;
 
-    @SuppressWarnings("unchecked")
     public List<MetricDto> getMetricByName(String name) {
         RestTemplate template = new RestTemplate();
 
@@ -28,8 +28,8 @@ public class MetricService {
             builder.queryParam("name-like", name);
 
         URI targetUri = builder.build().toUri();
-
-        return template.getForObject(targetUri, List.class);
+        MetricDto[] metrics = template.getForObject(targetUri, MetricDto[].class);
+        return Arrays.asList(metrics);
     }
 
     public MetricDto getMetricById(Long id) {

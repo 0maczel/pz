@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -36,6 +37,8 @@
 
 </head>
 
+
+
 <body>
 
 	<div id="sidebar-black" class="sidebar-nav">
@@ -46,7 +49,6 @@
 
 			<div class="navbar-collapse collapse sidebar-navbar-collapse">
 				<ul class="nav navbar-nav">
-
 
 					<li><a href="/pz-web-client/resources"><i></i> Resources </a></li>
 					<li><a href="/pz-web-client/metrics"><i></i> Metrics </a></li>
@@ -67,34 +69,39 @@
 	<main class="page-wrapper">
 	<div class="col-md-8">
 
-		<div class="panel panel-primary">
+		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h4>Resource: ${resource.name}</h4>
+				<h4>Resource: <a href="/pz-web-client/resources/${resource.id}">${resource.name}	</a></h4>
 			</div>
 			<div class="panel-body">
 
-				<h4>Available metrics:</h4>
+				<div class="form-group">
+				</div>
+
+				<h4>Latest simply measurements for metric: ${metric.name} </h4>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Name</th>
+							<th>Creation time</th>
+							<th>Value</th>
 						</tr>
 					</thead>
+
 					<tbody>
-						<c:forEach items="${metrics}" var="metric" varStatus="loopCounter">
-							<tr class="link">
-								<td>${loopCounter.index + 1}</td>
-								<td>${metric.name}</td>
-								<td><a href="${resource.id}/metrics/${metric.id}/measurements"><button type="button" class="btn btn-primary">Measurements</button></a></td>
-							</tr>
+						<c:forEach items="${measurements}" var="measurement"
+							varStatus="loopCounter">
+							
+								<tr class="link">
+									<td>${loopCounter.index + 1}</td>
+									<td>${measurement.creationTimestamp}</td>
+									<td><fmt:formatNumber type="number" maxFractionDigits="4" value="${measurement.value}" /></td>
+								</tr>
+						
 						</c:forEach>
 					</tbody>
 
 				</table>
-
-
-
 			</div>
 		</div>
 

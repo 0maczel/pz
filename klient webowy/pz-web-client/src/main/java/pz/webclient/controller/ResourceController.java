@@ -11,27 +11,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import pz.monitor.service.measurement.MeasurementDto;
 import pz.monitor.service.metric.MetricDto;
 import pz.monitor.service.resource.ResourceDto;
-import pz.monitor.service.sensor.SensorDto;
 import pz.webclient.search.SearchByNameAttribute;
-import pz.webclient.service.MeasurementsService;
-import pz.webclient.service.MetricService;
-import pz.webclient.service.ResourceMetricsService;
+import pz.webclient.service.ResourceMetricService;
 import pz.webclient.service.ResourceService;
-import pz.webclient.service.SensorService;
 
 /**
  * @author niemar
  *
  */
 @RestController
-public class ResourcesController {
+public class ResourceController {
 	@Autowired
 	private ResourceService resourcesService;
 	@Autowired
-	private ResourceMetricsService resourceDetailsService;
+	private ResourceMetricService resourceDetailsService;
 	
 	
 	@RequestMapping(value={"/resources"}, method = RequestMethod.GET)

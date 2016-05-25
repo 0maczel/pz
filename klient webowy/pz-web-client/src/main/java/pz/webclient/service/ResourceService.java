@@ -8,6 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pz.monitor.service.resource.ResourceDto;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,7 +17,6 @@ public class ResourceService {
     @Value("${apiEndpoint}")
     String endpoint;
 
-    @SuppressWarnings("unchecked")
     public List<ResourceDto> getResourceByName(String name) {
         RestTemplate template = new RestTemplate();
 
@@ -28,8 +28,8 @@ public class ResourceService {
             builder.queryParam("name-like", name);
 
         URI targetUri = builder.build().toUri();
-
-        return template.getForObject(targetUri, List.class);
+        ResourceDto[] resources = template.getForObject(targetUri, ResourceDto[].class);
+        return Arrays.asList(resources);
     }
 
     public ResourceDto getResourceById(Long id) {
@@ -43,7 +43,7 @@ public class ResourceService {
 
         return template.getForObject(targetUri, ResourceDto.class);
     }
-
+    
     public ResourceDto createResource(ResourceDto dto) {
         RestTemplate template = new RestTemplate();
 

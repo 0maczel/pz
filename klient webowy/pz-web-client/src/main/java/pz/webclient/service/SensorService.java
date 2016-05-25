@@ -8,7 +8,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pz.monitor.service.sensor.SensorDto;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
