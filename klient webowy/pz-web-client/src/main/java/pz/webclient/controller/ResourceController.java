@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pz.monitor.service.metric.MetricDto;
 import pz.monitor.service.resource.ResourceDto;
+import pz.webclient.path.Paths;
 import pz.webclient.search.SearchByNameAttribute;
 import pz.webclient.service.ResourceMetricService;
 import pz.webclient.service.ResourceService;
@@ -26,10 +27,9 @@ public class ResourceController {
 	@Autowired
 	private ResourceService resourcesService;
 	@Autowired
-	private ResourceMetricService resourceDetailsService;
+	private ResourceMetricService resourceMetricService;
 	
-	
-	@RequestMapping(value={"/resources"}, method = RequestMethod.GET)
+	@RequestMapping(value={Paths.RESOURCES}, method = RequestMethod.GET)
 	public ModelAndView getResources(ModelAndView modelAndView) {
 		List<ResourceDto> resourcesList = resourcesService.getResourceByName(null);
 		// TODO dodac obsluge error page
@@ -39,7 +39,7 @@ public class ResourceController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value={"/resources"}, method = RequestMethod.POST)
+	@RequestMapping(value={Paths.RESOURCES}, method = RequestMethod.POST)
 	public ModelAndView searchResources(@ModelAttribute SearchByNameAttribute searchResourcesAttributes, ModelAndView modelAndView) {
 		if(searchResourcesAttributes == null || StringUtils.isEmpty(searchResourcesAttributes.getName()))
 			return getResources(new ModelAndView());
@@ -50,11 +50,11 @@ public class ResourceController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value={"/resources/{id}"}, method = RequestMethod.GET)
-	public ModelAndView getResource(@PathVariable Long id, ModelAndView modelAndView) {
-		ResourceDto resource = resourcesService.getResourceById(id);
+	@RequestMapping(value={Paths.RESOURCE}, method = RequestMethod.GET)
+	public ModelAndView getResource(@PathVariable Long resourceId, ModelAndView modelAndView) {
+		ResourceDto resource = resourcesService.getResourceById(resourceId);
 		// TODO dodac obsluge error page
-		List<MetricDto> metrics =  resourceDetailsService.getResourceMetrics(resource.getName());
+		List<MetricDto> metrics =  resourceMetricService.getResourceMetrics(resource.getName());
 		modelAndView.addObject("resource", resource);
 		modelAndView.addObject("metrics", metrics);
 		modelAndView.setViewName("resource-details-view");

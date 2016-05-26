@@ -73,20 +73,21 @@
 			</div>
 			<div class="panel-body">
 
-				<h4>Available metrics:</h4>
+				<h4>Available measurements:</h4>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>Name</th>
+							<th>Measurements</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${metrics}" var="metric" varStatus="loopCounter">
 							<tr class="link">
 								<td>${loopCounter.index + 1}</td>
-								<td>${metric.name}</td>
-								<td><a href="${resource.id}/metrics/${metric.id}/measurements"><button type="button" class="btn btn-primary">Measurements</button></a></td>
+								<td><a href="/pz-web-client/metrics/${metric.id}">${metric.name}</a></td>			
+								<td><a href="${resource.id}/metrics/${metric.id}/measurements"><button type="button" class="btn btn-primary">Show</button></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

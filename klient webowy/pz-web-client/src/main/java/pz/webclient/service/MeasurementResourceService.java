@@ -3,15 +3,12 @@
  */
 package pz.webclient.service;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import pz.monitor.service.measurement.MeasurementDto;
 import pz.monitor.service.resource.ResourceDto;
@@ -22,19 +19,13 @@ import pz.monitor.service.resource.ResourceDto;
  */
 @Service
 public class MeasurementResourceService {
-	// TODO zmienic nazwe klasy
+	@Autowired
+	private ResourceService resourceService;
+	
 	public ResourceDto getMeasurementResource(MeasurementDto measurement) {
 		if (measurement == null)
 			return null;
-		return getMeasurementResource(measurement.getResource());
-	}
-	
-	private ResourceDto getMeasurementResource(String uri) {
-		if (StringUtils.isEmpty(uri))
-			return null;
-		RestTemplate template = new RestTemplate();
-		URI targetUri = UriComponentsBuilder.fromUriString(uri).build().toUri();
-		return template.getForObject(targetUri, ResourceDto.class);
+		return resourceService.getResourceFromUri(measurement.getResource());
 	}
 	
 	public List<ResourceDto> getMeasurementsResources(List<MeasurementDto> measurements) {

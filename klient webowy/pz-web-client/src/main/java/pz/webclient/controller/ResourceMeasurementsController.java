@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import pz.monitor.service.measurement.MeasurementDto;
 import pz.monitor.service.metric.MetricDto;
@@ -37,7 +36,6 @@ public class ResourceMeasurementsController {
 	
 	@RequestMapping(value={"/resources/{resourceId}/metrics/{metricId}/measurements"}, method = RequestMethod.GET)
 	public ModelAndView getResource(@PathVariable Long resourceId, @PathVariable Long metricId, ModelAndView modelAndView) {
-		System.out.println("ResourceMeasurementsController");
 		ResourceDto resource = resourcesService.getResourceById(resourceId);
 		MetricDto metric = metricService.getMetricById(metricId);
 		// TODO dodac obsluge error page

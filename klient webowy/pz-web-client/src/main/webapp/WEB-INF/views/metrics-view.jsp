@@ -109,7 +109,7 @@
 							varStatus="loopCounter">
 							<tr class="link">
 								<td>${loopCounter.index + 1}</td>
-								<td>${metric.name}</td>
+								<td><a href="/pz-web-client/metrics/${metric.id}">${metric.name}</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

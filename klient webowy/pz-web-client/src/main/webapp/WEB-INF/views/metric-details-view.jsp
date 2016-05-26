@@ -36,8 +36,6 @@
 
 </head>
 
-
-
 <body>
 
 	<div id="sidebar-black" class="sidebar-nav">
@@ -71,57 +69,33 @@
 
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h4>Resources</h4>
+				<h4>Metric: ${metric.name}</h4>
 			</div>
 			<div class="panel-body">
 
-				<div class="form-group">
-				</div>
-
-				<form:form method="post" modelAttribute="searchByNameAttribute"
-					class="form-group" role="search">
-
-					<div class="input-group">
-						<form:input path="name" type="text" class="form-control"
-							placeholder="Search" name="srch-term" id="srch-term" />
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-							
-							<button type="button" class="btn btn-default" onclick="location.href='/pz-web-client/resources'" >Show all</button>
-							
-						</div>
-					</div>
-				</form:form>
-
-
+				<h4>Available simply measurements:</h4>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Name</th>
+							<th>Resource</th>
+							<th>Measurements</th>
 						</tr>
 					</thead>
-
 					<tbody>
-						<c:forEach items="${resources}" var="resource"
-							varStatus="loopCounter">
-							
-								<tr class="link">
-									<td>${loopCounter.index + 1}</td>
-									<td><a href="/pz-web-client/resources/${resource.id}">${resource.name}</a></td>
-								</tr>
-						
+						<c:forEach items="${resources}" var="resource" varStatus="loopCounter">
+							<tr class="link">
+								<td>${loopCounter.index + 1}</td>
+								<td><a href="/pz-web-client/resources/${resource.id}">${resource.name}</a></td>		
+								<td><a href="/pz-web-client/resources/${resource.id}/metrics/${metric.id}/measurements"><button type="button" class="btn btn-primary">Show</button></a></td>
+							</tr>
 						</c:forEach>
 					</tbody>
 
 				</table>
+
 			</div>
 		</div>
-
-
-
 	</div>
 	</main>
 

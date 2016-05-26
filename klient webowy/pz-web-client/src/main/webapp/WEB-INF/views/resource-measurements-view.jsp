@@ -78,7 +78,7 @@
 				<div class="form-group">
 				</div>
 
-				<h4>Latest simply measurements for metric: ${metric.name} </h4>
+				<h4>Latest simply measurements for metric: <a href="/pz-web-client/metrics/${metric.id}">${metric.name}</a></h4>
 				<table class="table table-hover">
 					<thead>
 						<tr>
