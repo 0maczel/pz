@@ -41,7 +41,7 @@ public class MetricController {
 		modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
 		return modelAndView;
 	}
-	
+	// TODO do usuniecia
 	@RequestMapping(value={Paths.METRICS}, method = RequestMethod.POST)
 	public ModelAndView searchResources(@ModelAttribute SearchByNameAttribute searchByNameAttribute, ModelAndView modelAndView) {
 		if(searchByNameAttribute == null || StringUtils.isEmpty(searchByNameAttribute.getName()))

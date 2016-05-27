@@ -25,7 +25,10 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
 	crossorigin="anonymous">
 
-
+<!-- Tables css -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -34,6 +37,12 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
+<!-- Tables js -->
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	
 </head>
 
 <body>
@@ -73,8 +82,11 @@
 			</div>
 			<div class="panel-body">
 
-				<h4>Available simply measurements:</h4>
-				<table class="table table-hover">
+				<h4>Available simply measurements:</h4>			
+				
+				<table id="example"
+					class="table table-bordered table-hover table-responsive"
+					cellspacing="0" width="100%">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -91,8 +103,9 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-
 				</table>
+				
+				
 
 			</div>
 		</div>

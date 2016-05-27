@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import pz.monitor.service.measurement.MeasurementDto;
 import pz.monitor.service.metric.MetricDto;
 import pz.monitor.service.resource.ResourceDto;
+import pz.webclient.constant.Constants;
+import pz.webclient.path.Paths;
 import pz.webclient.service.MeasurementsService;
 import pz.webclient.service.MetricService;
 import pz.webclient.service.ResourceService;
@@ -25,8 +27,6 @@ import pz.webclient.service.ResourceService;
  */
 @RestController
 public class ResourceMeasurementsController {
-	private static final Long MESUREMENT_LIMIT = 30L;
-	
 	@Autowired
 	private ResourceService resourcesService;
 	@Autowired
@@ -34,14 +34,14 @@ public class ResourceMeasurementsController {
 	@Autowired 
 	private MeasurementsService measurementService;
 	
-	@RequestMapping(value={"/resources/{resourceId}/metrics/{metricId}/measurements"}, method = RequestMethod.GET)
+	@RequestMapping(value={Paths.RESOURCE + "/" + Paths.METRIC + "/measurements"}, method = RequestMethod.GET)
 	public ModelAndView getResource(@PathVariable Long resourceId, @PathVariable Long metricId, ModelAndView modelAndView) {
 		ResourceDto resource = resourcesService.getResourceById(resourceId);
 		MetricDto metric = metricService.getMetricById(metricId);
 		// TODO dodac obsluge error page
 		// TODO dodac sprawdzanie czy argumenty nie sa nullami bo wtedy zwroci wszystkie pomiary !
 		List<MeasurementDto> measurements = measurementService.getMeasurements(resource.getName(), metric.getName(),
-				null, null, MESUREMENT_LIMIT);
+				null, null, Constants.MESUREMENTS_LIMIT);
 		modelAndView.addObject("resource", resource);
 		modelAndView.addObject("metric", metric);
 		modelAndView.addObject("measurements", measurements);

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pz.monitor.service.measurement.MeasurementDto;
 import pz.monitor.service.metric.MetricDto;
 import pz.monitor.service.resource.ResourceDto;
+import pz.webclient.constant.Constants;
 import pz.webclient.service.MeasurementMetricService;
 import pz.webclient.service.MeasurementsService;
 import pz.webclient.service.MeasurementResourceService;
@@ -24,8 +25,6 @@ import pz.webclient.service.MeasurementResourceService;
  */
 @RestController
 public class MeasurementController {
-	private static final Long MEASUREMENTS_LIMIT = 20L;
-	
 	@Autowired 
 	private MeasurementsService measurementService;
 	@Autowired
@@ -35,7 +34,7 @@ public class MeasurementController {
 	
 	@RequestMapping(value={"/measurements"}, method = RequestMethod.GET)
 	public ModelAndView getMeasurements(ModelAndView modelAndView) {
-		List<MeasurementDto> measurements = measurementService.getMeasurements(null, null, null, null, MEASUREMENTS_LIMIT);
+		List<MeasurementDto> measurements = measurementService.getMeasurements(null, null, null, null, Constants.MESUREMENTS_LIMIT);
 		// TODO dodac obsluge error page
 		List<ResourceDto> resources = resourceMeasurementsService.getMeasurementsResources(measurements);
 		List<MetricDto> metrics = measurementMetricService.getMeasurementsMetrics(measurements);

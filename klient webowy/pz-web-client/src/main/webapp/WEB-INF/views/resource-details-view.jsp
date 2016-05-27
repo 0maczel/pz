@@ -25,6 +25,8 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
 	crossorigin="anonymous">
 
+<!-- Tables css -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -34,6 +36,12 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
+	<!-- Tables js -->
+	<script
+		src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+		
 </head>
 
 <body>
@@ -52,7 +60,6 @@
 					<li><a href="/pz-web-client/metrics"><i></i> Metrics </a></li>
 					<li><a href="/pz-web-client/measurements"><i></i> Simply measurements </a></li>
 					<li><a href="index.html"><i></i> Complex measurements </a></li>
-
 					<li><a href="index.html"><i
 							class="glyphicon glyphicon-user"></i> Profile </a></li>
 				</ul>
@@ -73,8 +80,10 @@
 			</div>
 			<div class="panel-body">
 
-				<h4>Available measurements:</h4>
-				<table class="table table-hover">
+			<h4>Available measurements:</h4>
+
+				<table id="example" class="table table-bordered table-hover table-responsive"
+					cellspacing="0" width="100%">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -93,6 +102,13 @@
 					</tbody>
 
 				</table>
+
+				<script type="text/javascript">
+					$(document).ready(function() {
+						$('#example').DataTable();
+					});
+				</script>
+
 
 
 

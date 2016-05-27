@@ -25,7 +25,10 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
 	crossorigin="anonymous">
 
-
+<!-- Tables css -->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -34,6 +37,12 @@
 	integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	crossorigin="anonymous"></script>
 
+<!-- Tables js -->
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	
 </head>
 
 
@@ -75,28 +84,11 @@
 			</div>
 			<div class="panel-body">
 
-				<div class="form-group">
-				</div>
-
-				<form:form method="post" modelAttribute="searchByNameAttribute"
-					class="form-group" role="search">
-
-					<div class="input-group">
-						<form:input path="name" type="text" class="form-control"
-							placeholder="Search" name="srch-term" id="srch-term" />
-						<div class="input-group-btn">
-							<button class="btn btn-default" type="submit">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-							
-							<button type="button" class="btn btn-default" onclick="location.href='/pz-web-client/metrics'" >Show all</button>
-							
-						</div>
-					</div>
-				</form:form>
-
-
-				<table class="table table-hover">
+				<h4>Available metrics:</h4>		
+				
+				<table id="example"
+					class="table table-bordered table-hover table-responsive"
+					cellspacing="0" width="100%">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -113,8 +105,20 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-
 				</table>
+
+				<script type="text/javascript">
+					$(document).ready(function() {
+						$('#example').DataTable();
+					});
+				</script>
+				
+				
+				
+				
+				
+				
+				
 			</div>
 		</div>
 

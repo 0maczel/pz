@@ -38,7 +38,7 @@ public class ResourceController {
 		modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
 		return modelAndView;
 	}
-	
+	// TODO do usuniecia
 	@RequestMapping(value={Paths.RESOURCES}, method = RequestMethod.POST)
 	public ModelAndView searchResources(@ModelAttribute SearchByNameAttribute searchResourcesAttributes, ModelAndView modelAndView) {
 		if(searchResourcesAttributes == null || StringUtils.isEmpty(searchResourcesAttributes.getName()))
