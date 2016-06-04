@@ -1,0 +1,2 @@
+class ConfigParser(object):
+    pass
