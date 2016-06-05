@@ -1,6 +1,8 @@
 from config_loader import ConfigLoader
 from measurements_retriever import MeasurementsRetriever
 import datetime
+import pprint
+import json
 
 if __name__ == '__main__':
     config_loader = ConfigLoader()
@@ -11,4 +13,4 @@ if __name__ == '__main__':
     measurements_retriever = MeasurementsRetriever(monitors)
     begin_timestamp = datetime.datetime.utcnow() - datetime.timedelta(0, refresh_period)
     measurements_dict = measurements_retriever.get_measurements(begin_timestamp)
-
+    pprint.pprint(measurements_dict)
