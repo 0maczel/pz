@@ -1,3 +1,5 @@
+from config_loader import ConfigLoader
 
 if __name__ == '__main__':
-    print '123'
+    config_loader = ConfigLoader()
+    config_loader.parse_config()

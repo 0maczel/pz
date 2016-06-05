@@ -2,7 +2,7 @@ import requests
 import random
 import json
 from collections import OrderedDict
-
+import time
 
 class ImitatedSensor(object):
     MONITOR_IP = ''
@@ -89,4 +89,8 @@ if __name__ == '__main__':
     # register_sensors(host_mapping_dict)
 
     sensors_ids_list = get_all_sensors()
-    register_new_measurements(sensors_ids_list)
+    while 1:
+        register_new_measurements(sensors_ids_list)
+        time.sleep(10)
+        if random.random() > 0.9:
+            del sensors_ids_list[random.randint(0, len(sensors_ids_list) - 1)]
