@@ -84,9 +84,9 @@ def register_new_measurements(sensors_ids):
 
 if __name__ == '__main__':
     #
-    # register_resources(25)
-    # host_mapping_dict = get_all_hosts()
-    # register_sensors(host_mapping_dict)
+    register_resources(25)
+    host_mapping_dict = get_all_hosts()
+    register_sensors(host_mapping_dict)
 
     sensors_ids_list = get_all_sensors()
     while 1:

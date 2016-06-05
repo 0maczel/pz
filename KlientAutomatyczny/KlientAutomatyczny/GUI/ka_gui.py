@@ -8,7 +8,10 @@ class ka_gui:
 
     def print_data(self, data, monitor_id=""):
         metrics_names = self.get_metrics_names(data)
-        self.print_sorted_data(data, metrics_names[0], monitor_id)
+        if len(metrics_names) > 0:
+            self.print_sorted_data(data, metrics_names[0], monitor_id)
+        else:
+            print "Brak pomiarow metryk do wyswietlenia"
 
     def print_sorted_data(self, data, metric_name, monitor_id=""):
         self.print_header(data)
