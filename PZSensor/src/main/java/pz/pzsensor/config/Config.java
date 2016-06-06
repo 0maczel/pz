@@ -39,11 +39,13 @@ public class Config {
     private long interval;
     private String [] metrics;
     private String systemName;
+    private String hostName;
     
     final String INTERVAL_TAG = "interval";
     final String MONITOR_URL = "monitorURL";
     final String METRIC_TAG = "metrics";
     final String METRIC_TAG_NAME = "metricName";
+    final String HOST_NAME = "hostName";
     
     public Config(){
         try {
@@ -63,12 +65,19 @@ public class Config {
             
             String intervalStr = jsonObj.getString(INTERVAL_TAG);
             interval = Long.parseLong(intervalStr);
+            try{
+                hostName = jsonObj.getString(HOST_NAME);
+            }catch(Exception e){
+                hostName = "";
+            }
             monitorURL = jsonObj.getString(MONITOR_URL);
             JSONArray metricsArray = jsonObj.getJSONArray(METRIC_TAG);
             metrics = new String[metricsArray.length()];
             for(int i = 0; i< metricsArray.length(); ++i){
                 metrics[i] = metricsArray.getJSONObject(i).getString(METRIC_TAG_NAME);
             }
+            if(!hostName.isEmpty() || !hostName.equals(""))
+                systemName = hostName;
         }
         catch(IOException e){
             
@@ -101,5 +110,12 @@ public class Config {
      */
     public String getSystemName() {
         return systemName;
+    }
+    
+    /**
+     * @return the hostName
+     */
+    public String getHostName() {
+        return hostName;
     }
 }
