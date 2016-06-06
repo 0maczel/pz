@@ -1,0 +1,1 @@
+java -Djava.library.path=.\sigar-bin\lib -jar PZSensor-1.0-SNAPSHOT-jar-with-dependencies.jar config.txt
