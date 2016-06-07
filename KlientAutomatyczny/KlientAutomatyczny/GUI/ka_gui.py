@@ -6,6 +6,9 @@ class ka_gui:
     MONITOR_ID_HEADER = "Monitor ID"
     HOST_ID_HEADER = "Host ID"
 
+    def __init__(self, limit=10):
+        self._limit = limit
+
     def print_data(self, data, monitor_id=""):
         metrics_names = self.get_metrics_names(data)
         if len(metrics_names) > 0:
@@ -71,12 +74,8 @@ class ka_gui:
         longest = self.get_longest_name(data)
         entries_log = self.get_log_entries(data)
         entries_log.sort_entries(metric_name)
-        for entry in entries_log.get_entries():
-            if monitor_id != "":
-                if entry.monitor_id == monitor_id:
-                    self.print_entry(entry, metrics_names, longest)
-            else:
-                self.print_entry(entry, metrics_names, longest)
+        for entry in entries_log.get_entries(monitor_id, self._limit):
+            self.print_entry(entry, metrics_names, longest)
 
     def print_entry(self, entry, metrics_names, longest):
         self.print_column(entry.monitor_id, longest)
