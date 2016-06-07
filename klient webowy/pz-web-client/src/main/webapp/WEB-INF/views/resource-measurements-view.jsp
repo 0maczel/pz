@@ -44,7 +44,10 @@
 	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script
 	src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.charts.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.ocean.js"></script>
+	
 </head>
 
 
@@ -106,11 +109,10 @@
 							<th>Value</th>
 						</tr>
 					</thead>
-
 					<tbody>
 						<c:forEach items="${measurements}" var="measurement"
 							varStatus="loopCounter">
-
+							
 							<tr class="link">
 								<td>${loopCounter.index + 1}</td>
 								<td>${measurement.creationTimestamp}</td>
@@ -121,6 +123,24 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div id="chart"></div>
+				
+				<%@page import="pz.webclient.Utils.FusionCharts" %>
+				
+				<%
+				String datasToChart = (String) request.getAttribute("datasToChart");
+				FusionCharts column2DChart= new FusionCharts(
+					"column2d",// chartType
+					"chart1",// chartId
+					"100%", //   chartWidth
+					"400",//    chartHeight
+					"chart",//  chartContainer
+					"json",//   dataFormat
+					"{\"chart\": {\"caption\": \"Latest simply measurements\",\"subCaption\": \"\",\"numberPrefix\": \"\",\"theme\": \"ocean\", \"exportEnabled\":\"1\"} ,\"data\": "+datasToChart+" }"
+				);
+				%>
+				
+				<%=column2DChart.render()%>
 
 				<script type="text/javascript">
 					$(document).ready(function() {
