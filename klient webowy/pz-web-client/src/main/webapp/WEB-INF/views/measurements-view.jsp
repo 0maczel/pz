@@ -58,7 +58,7 @@
 					<li><a href="/pz-web-client/metrics"><i></i> Metrics </a></li>
 					<li><a href="/pz-web-client/measurements"><i></i> Simply
 							measurements </a></li>
-					<li><a href="index.html"><i></i> Complex measurements </a></li>
+					<li><a href="/pz-web-client/complex-measurements"><i></i> Complex measurements </a></li>
 
 					<li><a href="index.html"><i
 							class="glyphicon glyphicon-user"></i> Profile </a></li>
