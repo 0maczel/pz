@@ -31,36 +31,31 @@ public class MetricController {
 	private MetricService metricService;
 	@Autowired
 	private ResourceMetricService resourceMetricService;
-	
-	@RequestMapping(value={Paths.METRICS}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { Paths.METRICS }, method = RequestMethod.GET)
 	public ModelAndView getMetrics(ModelAndView modelAndView) {
-		List<MetricDto> metricsList = metricService.getMetricByName(null);
-		// TODO dodac obslude error page
-		modelAndView.addObject("metrics", metricsList);
-		modelAndView.setViewName("metrics-view");
-		modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
+		try {
+			List<MetricDto> metricsList = metricService.getMetricByName(null);
+			modelAndView.addObject("metrics", metricsList);
+			modelAndView.setViewName("metrics-view");
+			modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
-	// TODO do usuniecia
-	@RequestMapping(value={Paths.METRICS}, method = RequestMethod.POST)
-	public ModelAndView searchResources(@ModelAttribute SearchByNameAttribute searchByNameAttribute, ModelAndView modelAndView) {
-		if(searchByNameAttribute == null || StringUtils.isEmpty(searchByNameAttribute.getName()))
-			return getMetrics(new ModelAndView());
-		List<MetricDto> metricsList = metricService.getMetricByName(searchByNameAttribute.getName());
-		// TODO dodac obslude error page
-		modelAndView.addObject("metrics", metricsList);
-		modelAndView.setViewName("metrics-view");
-		return modelAndView;
-	}
-	
-	@RequestMapping(value={Paths.METRIC}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { Paths.METRIC }, method = RequestMethod.GET)
 	public ModelAndView searchResources(@PathVariable Long metricId, ModelAndView modelAndView) {
-		MetricDto metric = metricService.getMetricById(metricId);
-		List<ResourceDto> resources = resourceMetricService.getMetricResources(metric.getName());	
-		// TODO dodac obslude error page
-		modelAndView.addObject("metric", metric);
-		modelAndView.addObject("resources", resources);
-		modelAndView.setViewName("metric-details-view");
+		try {
+			MetricDto metric = metricService.getMetricById(metricId);
+			List<ResourceDto> resources = resourceMetricService.getMetricResources(metric.getName());
+			modelAndView.addObject("metric", metric);
+			modelAndView.addObject("resources", resources);
+			modelAndView.setViewName("metric-details-view");
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
 }

@@ -28,36 +28,31 @@ public class ResourceController {
 	private ResourceService resourcesService;
 	@Autowired
 	private ResourceMetricService resourceMetricService;
-	
-	@RequestMapping(value={Paths.RESOURCES}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { Paths.RESOURCES }, method = RequestMethod.GET)
 	public ModelAndView getResources(ModelAndView modelAndView) {
-		List<ResourceDto> resourcesList = resourcesService.getResourceByName(null);
-		// TODO dodac obsluge error page
-		modelAndView.addObject("resources", resourcesList);
-		modelAndView.setViewName("resources-view");
-		modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
+		try {
+			List<ResourceDto> resourcesList = resourcesService.getResourceByName(null);
+			modelAndView.addObject("resources", resourcesList);
+			modelAndView.setViewName("resources-view");
+			modelAndView.addObject("searchByNameAttribute", new SearchByNameAttribute());
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
-	// TODO do usuniecia
-	@RequestMapping(value={Paths.RESOURCES}, method = RequestMethod.POST)
-	public ModelAndView searchResources(@ModelAttribute SearchByNameAttribute searchResourcesAttributes, ModelAndView modelAndView) {
-		if(searchResourcesAttributes == null || StringUtils.isEmpty(searchResourcesAttributes.getName()))
-			return getResources(new ModelAndView());
-		List<ResourceDto> resourcesList = resourcesService.getResourceByName(searchResourcesAttributes.getName());
-		// TODO dodac obsluge error page
-		modelAndView.addObject("resources", resourcesList);
-		modelAndView.setViewName("resources-view");
-		return modelAndView;
-	}
-	
-	@RequestMapping(value={Paths.RESOURCE}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { Paths.RESOURCE }, method = RequestMethod.GET)
 	public ModelAndView getResource(@PathVariable Long resourceId, ModelAndView modelAndView) {
-		ResourceDto resource = resourcesService.getResourceById(resourceId);
-		// TODO dodac obsluge error page
-		List<MetricDto> metrics =  resourceMetricService.getResourceMetrics(resource.getName());
-		modelAndView.addObject("resource", resource);
-		modelAndView.addObject("metrics", metrics);
-		modelAndView.setViewName("resource-details-view");
+		try {
+			ResourceDto resource = resourcesService.getResourceById(resourceId);
+			List<MetricDto> metrics = resourceMetricService.getResourceMetrics(resource.getName());
+			modelAndView.addObject("resource", resource);
+			modelAndView.addObject("metrics", metrics);
+			modelAndView.setViewName("resource-details-view");
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
 }

@@ -25,23 +25,27 @@ import pz.webclient.service.MeasurementResourceService;
  */
 @RestController
 public class MeasurementController {
-	@Autowired 
+	@Autowired
 	private MeasurementsService measurementService;
 	@Autowired
 	private MeasurementResourceService resourceMeasurementsService;
 	@Autowired
 	private MeasurementMetricService measurementMetricService;
-	
-	@RequestMapping(value={"/measurements"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/measurements" }, method = RequestMethod.GET)
 	public ModelAndView getMeasurements(ModelAndView modelAndView) {
-		List<MeasurementDto> measurements = measurementService.getMeasurements(null, null, null, null, Constants.MESUREMENTS_LIMIT);
-		// TODO dodac obsluge error page
-		List<ResourceDto> resources = resourceMeasurementsService.getMeasurementsResources(measurements);
-		List<MetricDto> metrics = measurementMetricService.getMeasurementsMetrics(measurements);
-		modelAndView.addObject("measurements", measurements);
-		modelAndView.addObject("resources", resources);
-		modelAndView.addObject("metrics", metrics);
-		modelAndView.setViewName("measurements-view");
+		try {
+			List<MeasurementDto> measurements = measurementService.getMeasurements(null, null, null, null,
+					Constants.MESUREMENTS_LIMIT);
+			List<ResourceDto> resources = resourceMeasurementsService.getMeasurementsResources(measurements);
+			List<MetricDto> metrics = measurementMetricService.getMeasurementsMetrics(measurements);
+			modelAndView.addObject("measurements", measurements);
+			modelAndView.addObject("resources", resources);
+			modelAndView.addObject("metrics", metrics);
+			modelAndView.setViewName("measurements-view");
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
 

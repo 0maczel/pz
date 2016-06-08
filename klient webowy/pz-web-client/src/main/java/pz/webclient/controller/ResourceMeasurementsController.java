@@ -34,40 +34,45 @@ public class ResourceMeasurementsController {
 	private ResourceService resourcesService;
 	@Autowired
 	private MetricService metricService;
-	@Autowired 
+	@Autowired
 	private MeasurementsService measurementService;
 
-	@RequestMapping(value={Paths.RESOURCE + "/" + Paths.METRIC + "/measurements"}, method = RequestMethod.GET)
-	public ModelAndView getResource(@PathVariable Long resourceId, @PathVariable Long metricId, ModelAndView modelAndView) {
-		ResourceDto resource = resourcesService.getResourceById(resourceId);
-		MetricDto metric = metricService.getMetricById(metricId);
-		// TODO dodac obsluge error page
-		// TODO dodac sprawdzanie czy argumenty nie sa nullami bo wtedy zwroci wszystkie pomiary !
-		List<MeasurementDto> measurements = measurementService.getMeasurements(resource.getName(), metric.getName(),
-				null, null, Constants.MESUREMENTS_LIMIT);
-		modelAndView.addObject("resource", resource);
-		modelAndView.addObject("metric", metric);
-		modelAndView.addObject("measurements", measurements);
-		modelAndView.addObject("datasToChart", buildDatasToChart(measurements));
-		modelAndView.setViewName("resource-measurements-view");
+	@RequestMapping(value = { Paths.RESOURCE + "/" + Paths.METRIC + "/measurements" }, method = RequestMethod.GET)
+	public ModelAndView getResource(@PathVariable Long resourceId, @PathVariable Long metricId,
+			ModelAndView modelAndView) {
+		try {
+			ResourceDto resource = resourcesService.getResourceById(resourceId);
+			MetricDto metric = metricService.getMetricById(metricId);
+			// TODO dodac sprawdzanie czy argumenty nie sa nullami bo wtedy
+			// zwroci wszystkie pomiary !
+			List<MeasurementDto> measurements = measurementService.getMeasurements(resource.getName(), metric.getName(),
+					null, null, Constants.MESUREMENTS_LIMIT);
+			modelAndView.addObject("resource", resource);
+			modelAndView.addObject("metric", metric);
+			modelAndView.addObject("measurements", measurements);
+			modelAndView.addObject("datasToChart", buildDatasToChart(measurements));
+			modelAndView.setViewName("resource-measurements-view");
+		} catch (Exception e) {
+			modelAndView.setViewName("error-view");
+		}
 		return modelAndView;
 	}
-	
-	private String buildDatasToChart(List<MeasurementDto> measurements){
+
+	private String buildDatasToChart(List<MeasurementDto> measurements) {
 		StringBuilder sb = new StringBuilder("[");
 		Iterator<MeasurementDto> measurementDtoIter = measurements.iterator();
-	    while (measurementDtoIter.hasNext()){
-	    	MeasurementDto measurementDto = measurementDtoIter.next();	  
+		while (measurementDtoIter.hasNext()) {
+			MeasurementDto measurementDto = measurementDtoIter.next();
 			sb.append("{\"label\": \"").append(measurementDto.getCreationTimestamp());
 			BigDecimal total = new BigDecimal(measurementDto.getValue(), MathContext.DECIMAL64);
 			total = total.setScale(4, BigDecimal.ROUND_DOWN);
 			sb.append("\",\"value\": \"").append(total).append("\"}");
-			if(measurementDtoIter.hasNext()){
+			if (measurementDtoIter.hasNext()) {
 				sb.append(",");
 			}
 		}
-	    sb.append("]");
+		sb.append("]");
 		return sb.toString();
 	}
-	
+
 }
