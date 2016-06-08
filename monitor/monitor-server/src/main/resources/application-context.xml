@@ -15,7 +15,9 @@
 
 
 	<context:annotation-config />
-	<context:property-placeholder location="classpath:monitor.properties" />
+	<context:property-placeholder location="file:./monitor.properties" />
+
+    
 	<context:component-scan base-package="pz.monitor" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
