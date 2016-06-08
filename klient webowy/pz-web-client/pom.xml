@@ -80,6 +80,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>pz-web-client</finalName>
+
 	</build>
 
 </project>
