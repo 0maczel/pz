@@ -31,10 +31,10 @@ public class TestEntityFactory {
 
 	public static ComplexMeasurement getTestComplexMeasurement() {
 		ComplexMeasurement complesMeasurement = new ComplexMeasurement();
-		complesMeasurement.setMetric(getTestMetric());
-		complesMeasurement.setResource(getTestResource());
-		complesMeasurement.setWindowLength(Duration.ofMinutes(10));
-		complesMeasurement.setWindowInterval(Duration.ofMinutes(1));
+//		complesMeasurement.setMetric(getTestMetric());
+//		complesMeasurement.setResource(getTestResource());
+//		complesMeasurement.setWindowLength(Duration.ofMinutes(10));
+//		complesMeasurement.setWindowInterval(Duration.ofMinutes(1));
 		return complesMeasurement;
 	}
 
