@@ -1,7 +1,5 @@
 package pz.monitor.db.entity;
 
-import java.time.Duration;
-
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -11,44 +9,46 @@ import org.hibernate.annotations.CascadeType;
 @javax.persistence.Entity
 @Table(name = "ComplexMeasurement")
 public class ComplexMeasurement extends Entity {
+
+	private String name;
+
 	@ManyToOne
 	@Cascade(CascadeType.SAVE_UPDATE)
-	private Resource resource;
-	@ManyToOne
-	@Cascade(CascadeType.SAVE_UPDATE)
-	private Metric metric;
-	private Duration windowLength;
-	private Duration windowInterval;
+	private Sensor sensor;
 
-	public Resource getResource() {
-		return resource;
+	private Long windowDurationMilis;
+	private Long windowIntervalMilis;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setResource(Resource resource) {
-		this.resource = resource;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Metric getMetric() {
-		return metric;
+	public Sensor getSensor() {
+		return sensor;
 	}
 
-	public void setMetric(Metric metric) {
-		this.metric = metric;
+	public void setSensor(Sensor sensor) {
+		this.sensor = sensor;
 	}
 
-	public Duration getWindowLength() {
-		return windowLength;
+	public Long getWindowDurationMilis() {
+		return windowDurationMilis;
 	}
 
-	public void setWindowLength(Duration windowLength) {
-		this.windowLength = windowLength;
+	public void setWindowDurationMilis(Long windowDurationMilis) {
+		this.windowDurationMilis = windowDurationMilis;
 	}
 
-	public Duration getWindowInterval() {
-		return windowInterval;
+	public Long getWindowIntervalMilis() {
+		return windowIntervalMilis;
 	}
 
-	public void setWindowInterval(Duration windowInterval) {
-		this.windowInterval = windowInterval;
+	public void setWindowIntervalMilis(Long windowIntervalMilis) {
+		this.windowIntervalMilis = windowIntervalMilis;
 	}
+
 }

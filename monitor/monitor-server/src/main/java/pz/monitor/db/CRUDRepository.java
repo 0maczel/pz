@@ -1,5 +1,7 @@
 package pz.monitor.db;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -37,6 +39,11 @@ public class CRUDRepository implements Repository {
 	}
 
 	@Override
+	public <T extends Entity> T getChecked(Class<T> type, Long id) {
+		return requireNonNull(get(type, id));
+	}
+
+	@Override
 	public <T extends Entity> void save(T entity) {
 		getSession().saveOrUpdate(entity);
 	}
@@ -44,6 +51,11 @@ public class CRUDRepository implements Repository {
 	@Override
 	public <T extends Entity> void delete(T entity) {
 		getSession().delete(entity);
+	}
+
+	@Override
+	public <T extends Entity> void delete(Class<T> entity, Long id) {
+		delete(get(entity, id));
 	}
 
 	@Override

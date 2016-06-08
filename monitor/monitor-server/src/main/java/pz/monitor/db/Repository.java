@@ -10,7 +10,11 @@ public interface Repository {
 
 	<T extends Entity> T get(Class<T> type, Long id);
 
+	<T extends Entity> T getChecked(Class<T> type, Long id);
+
 	<T extends Entity> void save(T entity);
+
+	<T extends Entity> void delete(Class<T> entity, Long id);
 
 	<T extends Entity> void delete(T entity);
 
