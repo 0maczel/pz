@@ -125,6 +125,8 @@
 				</table>
 				<div id="chart"></div>
 				
+				<button type="button" class="btn btn-primary" onclick="csvExport()">Export to CSV</button>
+				
 				<%@page import="pz.webclient.Utils.FusionCharts" %>
 				
 				<%
@@ -136,7 +138,7 @@
 					"400",//    chartHeight
 					"chart",//  chartContainer
 					"json",//   dataFormat
-					"{\"chart\": {\"caption\": \"Latest simply measurements\",\"subCaption\": \"\",\"numberPrefix\": \"\",\"theme\": \"ocean\", \"exportEnabled\":\"1\"} ,\"data\": "+datasToChart+" }"
+					"{\"chart\": {\"caption\": \"Latest simply measurements\",\"subCaption\": \"\",\"numberPrefix\": \"\",\"theme\": \"ocean\", \"exportEnabled\": \"1\", \"useHorizontalScrolling\": \"1\", \"ganttPaneDuration\": \"3\", \"ganttPaneDurationUnit\": \"m\", \"scrollheight\": \"10\", \"flatScrollBars\": \"1\", \"scrollShowButtons\": \"0\", \"scrollColor\": \"#cccccc\"} ,\"data\": "+datasToChart+" }"
 				);
 				%>
 				
@@ -148,6 +150,22 @@
 					});
 				</script>
 
+
+				<SCRIPT LANGUAGE="JavaScript">
+				
+				 function csvExport(){
+				           	var chartObj = FusionCharts("chart1");  
+				            var encodedUri = encodeURI("data:text/csv;charset=utf-8,"+chartObj.getDataAsCSV());
+				            var link = document.createElement("a");
+				            link.setAttribute("href", encodedUri);
+				            link.setAttribute("download", "my_data.csv");
+				            document.body.appendChild(link);
+				            link.click();
+				            return;
+				 }
+				      
+				 
+				</SCRIPT>
 
 			</div>
 		</div>
