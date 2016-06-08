@@ -2,12 +2,9 @@ package pz.monitor.service.measurement;
 
 import static java.util.Objects.requireNonNull;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,14 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pz.monitor.db.Repository;
 import pz.monitor.db.entity.Measurement;
-import pz.monitor.db.entity.Metric;
-import pz.monitor.db.entity.Resource;
 import pz.monitor.db.entity.Sensor;
 import pz.monitor.db.query.Query;
 import pz.monitor.service.common.DateTimeHelper;
 import pz.monitor.service.common.DtoConverter;
-import pz.monitor.service.sensor.SensorCreateRequest;
-import pz.monitor.service.sensor.SensorDto;
 
 @RestController
 @Transactional
@@ -70,23 +63,22 @@ public class MeasurementService {
 		MeasurementDto dto = dtoConverter.toDto(entity);
 		return dto;
 	}
-	
-	
+
 	@RequestMapping(path = "/sensors/{sensorId}/measurements", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public MeasurementDto add(@PathVariable Long sensorId, @RequestBody MeasurementDto measurementDto){
+	public MeasurementDto add(@PathVariable Long sensorId, @RequestBody MeasurementDto measurementDto) {
 
 		Measurement measurement = new Measurement();
 		requireNonNull(measurementDto, "Measurement identifier required.");
-		
+
 		Sensor reportingSensor = repository.get(Sensor.class, sensorId);
 		requireNonNull(reportingSensor, "Sensor with this identifier doesn't exist");
 		measurement.setSensor(reportingSensor);
 		measurement.setMetric(reportingSensor.getMetric());
 		measurement.setResource(reportingSensor.getResource());
-		measurement.setValue( measurementDto.getValue() );
+		measurement.setValue(measurementDto.getValue());
 
 		repository.save(measurement);
 		return dtoConverter.toDto(measurement);
 	}
-	
+
 }
