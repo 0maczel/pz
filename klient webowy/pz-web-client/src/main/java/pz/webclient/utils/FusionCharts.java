@@ -1,4 +1,4 @@
-package pz.webclient.Utils;
+package pz.webclient.utils;
 
 public class FusionCharts {
     private String constructorTemplate = "<script type=\"text/javascript\">FusionCharts.ready(function () {new FusionCharts(__constructorOptions__);});</script>";

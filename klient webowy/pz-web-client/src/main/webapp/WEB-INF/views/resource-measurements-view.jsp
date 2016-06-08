@@ -127,7 +127,7 @@
 				
 				<button type="button" class="btn btn-primary" onclick="csvExport()">Export to CSV</button>
 				
-				<%@page import="pz.webclient.Utils.FusionCharts" %>
+				<%@page import="pz.webclient.utils.FusionCharts" %>
 				
 				<%
 				String datasToChart = (String) request.getAttribute("datasToChart");
